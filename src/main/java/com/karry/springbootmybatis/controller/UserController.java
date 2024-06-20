@@ -2,12 +2,10 @@ package com.karry.springbootmybatis.controller;
 import  com.karry.springbootmybatis.pojo.User;
 import com.karry.springbootmybatis.pojo.result;
 import com.karry.springbootmybatis.service.UserService;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 import com.karry.springbootmybatis.service.UserService;
@@ -39,5 +37,13 @@ public class UserController {
 //
 //    }
 
+//    删除操作
+    @DeleteMapping("/{id}")
+    public result delete(@RequestBody User user){
+        log.info("删除用户: {}" , user);
+        //调用service新增部门
+        UserService.delete(user);
+        return result.success();
+    }
 }
 

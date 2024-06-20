@@ -12,6 +12,7 @@ public class GCServiceImpl implements GCService {
 
     @Override
     public List<GiniCoefficient> listfcec() {
+
         return giniCoefficientMapper.listfcec();
     }
 }
