@@ -1,5 +1,6 @@
 package com.karry.springbootmybatis.mapper;
 
+import com.karry.springbootmybatis.pojo.GiniCoefficient;
 import com.karry.springbootmybatis.pojo.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -15,6 +16,7 @@ public interface UserMapper {
 //    @Select("select * from \"user\" limit #{start},#{end}")
 //    public User findUserById(Integer id);
 public User findUserById();
+
 
 }
 
