@@ -6,18 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import java.util.List;
 
 @RestController
-@RequestMapping("/geni1")
+@RequestMapping("/api")
 public class HumanRController {
 
     @Autowired
     private HumanRService humanRService;
 
-    @GetMapping("/getAllH")
-    public List<humanRes> getAllGeniService() {
-//        System.out.println("1");
+    @GetMapping("/Home")
+    public humanRes getAllGeniService() {
         return humanRService.getAll();
     }
 }
