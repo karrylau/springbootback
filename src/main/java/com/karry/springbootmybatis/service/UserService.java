@@ -10,8 +10,6 @@ public User findUserById();
 //全面查询
 List<User> list();
 //删除操作
-void delete(User user);
-//新增操作
-void add(User user);
+
 }
 

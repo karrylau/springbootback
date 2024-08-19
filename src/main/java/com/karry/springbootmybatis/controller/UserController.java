@@ -36,12 +36,6 @@ public class UserController {
 //    }
 
 //    删除操作
-    @DeleteMapping("/{id}")
-    public result delete(@RequestBody User user){
-        log.info("删除用户: {}" , user);
-        //调用service新增部门
-        UserService.delete(user);
-        return result.success();
-    }
+
 }
 
