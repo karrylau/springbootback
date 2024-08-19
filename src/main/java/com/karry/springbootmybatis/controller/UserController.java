@@ -17,8 +17,6 @@ public class UserController {
     @Autowired
     private UserService UserService;
 
-
-
     @GetMapping
     public result list(){
         log.info("查询全部部门数据");

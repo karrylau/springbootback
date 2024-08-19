@@ -3,7 +3,6 @@ package com.karry.springbootmybatis.pojo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.boot.test.autoconfigure.data.cassandra.DataCassandraTest;
 
 @Data
 @NoArgsConstructor
@@ -25,5 +24,7 @@ public class result {  // 1
     public static result error(String msg){  // 9
         return new result(0,msg,null);  // 10
     }
-
+    public  static result error(Integer code, String msg){
+        return new result(code,msg,null);
+    }
 }

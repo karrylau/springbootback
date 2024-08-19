@@ -1,6 +1,13 @@
-E:\Code_for_save\Vue+SpringBoot\springboot-mybatis\src\main\java\com\karry\springbootmybatis\service\impl\UserServiceImpl.java
 E:\Code_for_save\Vue+SpringBoot\springboot-mybatis\src\main\java\com\karry\App.java
+E:\Code_for_save\Vue+SpringBoot\springboot-mybatis\src\main\java\com\karry\springbootmybatis\service\GCService.java
+E:\Code_for_save\Vue+SpringBoot\springboot-mybatis\src\main\java\com\karry\springbootmybatis\service\UserService.java
+E:\Code_for_save\Vue+SpringBoot\springboot-mybatis\src\main\java\com\karry\springbootmybatis\controller\GCcontroller.java
+E:\Code_for_save\Vue+SpringBoot\springboot-mybatis\src\main\java\com\karry\springbootmybatis\controller\UserController.java
+E:\Code_for_save\Vue+SpringBoot\springboot-mybatis\src\main\java\com\karry\springbootmybatis\pojo\GiniCoefficient.java
+E:\Code_for_save\Vue+SpringBoot\springboot-mybatis\src\main\java\com\karry\springbootmybatis\service\impl\GCServiceImpl.java
+E:\Code_for_save\Vue+SpringBoot\springboot-mybatis\src\main\java\com\karry\springbootmybatis\mapper\GCMapper.java
+E:\Code_for_save\Vue+SpringBoot\springboot-mybatis\src\main\java\com\karry\springbootmybatis\service\impl\UserServiceImpl.java
 E:\Code_for_save\Vue+SpringBoot\springboot-mybatis\src\main\java\com\karry\springbootmybatis\mapper\UserMapper.java
 E:\Code_for_save\Vue+SpringBoot\springboot-mybatis\src\main\java\com\karry\springbootmybatis\pojo\User.java
-E:\Code_for_save\Vue+SpringBoot\springboot-mybatis\src\main\java\com\karry\springbootmybatis\service\UserService.java
-E:\Code_for_save\Vue+SpringBoot\springboot-mybatis\src\main\java\com\karry\springbootmybatis\controller\UserController.java
+E:\Code_for_save\Vue+SpringBoot\springboot-mybatis\src\main\java\com\karry\springbootmybatis\pojo\result.java
+E:\Code_for_save\Vue+SpringBoot\springboot-mybatis\src\main\java\com\karry\springbootmybatis\controller\admin.java
