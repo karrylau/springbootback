@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/geni2")
+@RequestMapping("/api")
 public class FinancialRController {
 
     @Autowired
     private FinancialRService financialRService;
 
     @GetMapping("/getAllF")
-    public List<financialRes> getAllF() {
+    public financialRes getAllF() {
 //        System.out.println("2");
         return financialRService.getAll();
     }

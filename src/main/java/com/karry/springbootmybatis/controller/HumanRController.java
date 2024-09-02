@@ -1,11 +1,10 @@
 package com.karry.springbootmybatis.controller;
 
+import com.karry.springbootmybatis.pojo.financialRes;
 import com.karry.springbootmybatis.pojo.humanRes;
 import com.karry.springbootmybatis.service.HumanRService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
@@ -17,5 +16,15 @@ public class HumanRController {
     @GetMapping("/Home")
     public humanRes getAllGeniService() {
         return humanRService.getAll();
+    }
+
+    @GetMapping("/getAllH")
+    public humanRes getAllH() {
+//        System.out.println("1");
+        return humanRService.getAll();
+    }
+    @PostMapping("/filter")      //按年份，学段，地区筛选
+    public humanRes getFilteredData(@RequestParam Integer year, @RequestParam String stage, @RequestParam String location) {
+        return humanRService.getFilteredData(year, stage, location);
     }
 }
