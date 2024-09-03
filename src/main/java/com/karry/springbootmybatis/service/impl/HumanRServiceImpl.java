@@ -1,6 +1,7 @@
 package com.karry.springbootmybatis.service.impl;
 
 import com.karry.springbootmybatis.mapper.HumanRMapper;
+import com.karry.springbootmybatis.pojo.homenum;
 import com.karry.springbootmybatis.pojo.humanRes;
 import com.karry.springbootmybatis.service.HumanRService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ public class HumanRServiceImpl implements HumanRService {
 
     @Autowired
     private HumanRMapper humanRMapper;
+    @Autowired
+    private com.karry.springbootmybatis.pojo.homenum homenum;
 
     @Override
     public humanRes getAll() {
@@ -72,6 +75,26 @@ public class HumanRServiceImpl implements HumanRService {
         } catch (Exception e) {
             e.printStackTrace();
             return new humanRes();
+        }
+    }
+
+    @Override
+    public homenum getHomenum() {
+        try {
+            List<Map<String, Object>> rawData = humanRMapper.getEduCost();
+            double totalEduCost = 0;
+
+            for (Map<String, Object> entry : rawData) {
+                totalEduCost += (Double) entry.get("EduCost");
+            }
+           System.out.println("totalEduCost: " + totalEduCost);
+            homenum result = new homenum();
+            result.setAllCost(totalEduCost);
+
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new homenum();
         }
     }
 }

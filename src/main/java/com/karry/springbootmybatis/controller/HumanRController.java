@@ -1,6 +1,7 @@
 package com.karry.springbootmybatis.controller;
 
 import com.karry.springbootmybatis.pojo.financialRes;
+import com.karry.springbootmybatis.pojo.homenum;
 import com.karry.springbootmybatis.pojo.humanRes;
 import com.karry.springbootmybatis.service.HumanRService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +14,14 @@ public class HumanRController {
     @Autowired
     private HumanRService humanRService;
 
-    @GetMapping("/Home")
+    @GetMapping("/all")
     public humanRes getAllGeniService() {
         return humanRService.getAll();
+    }
+
+    @GetMapping("/home")
+    public homenum gethomenum() {
+        return humanRService.getHomenum();
     }
 
     @GetMapping("/getAllH")
