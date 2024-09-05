@@ -13,4 +13,7 @@ public interface HumanRMapper {
 
     @Select("SELECT * FROM \"Geni\".\"human_res\" WHERE year = #{year} AND stage = #{stage} AND location = #{location}")
     List<Map<String, Object>> getFilteredData(@Param("year") Integer year, @Param("stage") String stage, @Param("location") String location);
+
+    @Select("SELECT \"EduCost\" FROM \"Geni\".\"financial_res\" WHERE year = 2022")
+    List<Map<String, Object>> getEduCost();
 }
