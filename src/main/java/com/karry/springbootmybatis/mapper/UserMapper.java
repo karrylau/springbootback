@@ -8,21 +8,20 @@ import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
-
 @Mapper
 public interface UserMapper {
-@Select("select * from \"user\" where username=#{username} order by id desc ")
-   User selectUser(String username);
 
-    @Select("select * from  \"user\"")
+    @Select("SELECT * FROM \"user\" WHERE name = #{username} ORDER BY id DESC")
+    User selectUser(String username);
+
+    @Select("SELECT * FROM \"user\"")
     List<User> list();
-@Insert("insert into \"user\"(username,password) values(#{username},#{password})")
-    void insert(User user);
-//    @Select("select * from \"user\" limit #{start},#{end}")
-//    public User findUserById(Integer id);
-//public User findUserById();
 
+    @Insert("INSERT INTO \"user\"(\"name\", \"password\") VALUES(#{name}, #{password})")
+      void insert(User user);
 
+    // 保留注释掉的方法供参考
+    // @Select("SELECT * FROM \"user\" LIMIT #{start},#{end}")
+    // public User findUserById(Integer start, Integer end);
+    // public User findUserById();
 }
-
-
