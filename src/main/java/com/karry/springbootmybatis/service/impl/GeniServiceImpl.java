@@ -43,7 +43,7 @@ public class GeniServiceImpl implements GeniService {
                 if (GeniData1.size() != GeniData2.size()) {
                     throw new IllegalStateException("error");
                 }
-                System.out.println("GeniData1: " + GeniData1.size() + " GeniData2: " + GeniData2.size());
+               //System.out.println("GeniData1: " + GeniData1.size() + " GeniData2: " + GeniData2.size());
 
                 for (int i = 0; i < GeniData1.size(); i++) {
                     allpeople += (Integer) GeniData2.get(i).get("Snum");
@@ -58,7 +58,7 @@ public class GeniServiceImpl implements GeniService {
                     qi += wi;
                     double gi = pi * (2 * qi - wi);
                     geni += gi;
-                    System.out.println("pi: " + pi + " wi: " + wi+ " qi: " + qi + " gi: " + gi+ " geni: " + geni);
+                    //System.out.println("pi: " + pi + " wi: " + wi+ " qi: " + qi + " gi: " + gi+ " geni: " + geni);
                 }
                 geniList.add(1 - geni);
             }

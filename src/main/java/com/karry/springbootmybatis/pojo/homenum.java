@@ -8,6 +8,6 @@ public class homenum {
     private Double gdp;
     private Double allCost;
     private Double culCost;
-    private String area;
-    private Double fixedAssets;
+    private Double area;
+    private Double FixedAssets;
 }

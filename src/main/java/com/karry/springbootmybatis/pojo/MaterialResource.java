@@ -11,7 +11,7 @@ public class MaterialResource {
     private Double computersPerStudent; // 重命名为 ComputersPerStudent
     private Double booksPerStudent; // 重命名为 BooksPerStudent
     private Double area;
-    private Double fixedAssets;
+    private Double FixedAssets;
 
     // 默认构造函数
     public MaterialResource() {
@@ -26,7 +26,7 @@ public class MaterialResource {
         this.computersPerStudent = computersPerStudent;
         this.booksPerStudent = booksPerStudent;
         this.area = area;
-        this.fixedAssets = fixedAssets;
+        this.FixedAssets = fixedAssets;
     }
 
     // Getter 和 Setter 方法
@@ -87,10 +87,10 @@ public class MaterialResource {
     }
 
     public Double getFixedAssets() {
-        return fixedAssets;
+        return FixedAssets;
     }
 
     public void setFixedAssets(Double fixedAssets) {
-        this.fixedAssets = fixedAssets;
+        this.FixedAssets = fixedAssets;
     }
 }
