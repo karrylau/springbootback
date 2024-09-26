@@ -22,7 +22,7 @@ public class admin {
         return result.success("success");
     }
 
-    @PostMapping("api/login")
+    @PostMapping("/login")
     public result login(@RequestBody User user) {
 //        if (user.getName() == null || user.getPassword().isEmpty()) {
 //            return result.error("数据输入不合法");
@@ -33,7 +33,7 @@ public class admin {
         user= userService.login(user);//传递出来的是dbuser
         return result.success(user);
     }
-    @PostMapping("api/register")
+    @PostMapping("/register")
     public result register(@RequestBody User user) {
 //        if (user.getName() == null || user.getPassword().isEmpty()) {
 //            return result.error("数据输入不合法");

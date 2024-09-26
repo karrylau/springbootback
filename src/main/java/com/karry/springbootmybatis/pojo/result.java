@@ -22,8 +22,12 @@ public class result {  // 1
         return new result(1,"success",data);  // 8
     }
 
-    public static result error(String msg){  // 9
-        return new result(0,msg,null);  // 10
+    public static result error(String msg) {
+        return new result(0, msg, (Object)null);
+    }
+
+    public static result error(Integer code, String msg) {
+        return new result(code, msg, (Object)null);
     }
 
 }
