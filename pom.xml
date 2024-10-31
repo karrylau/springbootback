@@ -58,6 +58,11 @@
             <artifactId>hutool-all</artifactId>
             <version>5.7.5</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>5.2.3</version>
+        </dependency>
         <!--加入国产的工具类依赖，方便开发-->
         <!--        <dependency>-->
 <!--            <groupId>org.slf4j</groupId>-->
