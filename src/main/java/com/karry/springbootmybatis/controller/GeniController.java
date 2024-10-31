@@ -1,9 +1,6 @@
 package com.karry.springbootmybatis.controller;
 
-import com.karry.springbootmybatis.pojo.Geniresult;
-import com.karry.springbootmybatis.pojo.Geniselect;
-import com.karry.springbootmybatis.pojo.peopleselect;
-import com.karry.springbootmybatis.pojo.timeselect;
+import com.karry.springbootmybatis.pojo.*;
 import com.karry.springbootmybatis.service.GeniService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,5 +15,9 @@ public class GeniController {
     @PostMapping("/geniselect")
     public Geniresult getGeniselect(@RequestBody Geniselect geniselect) {
         return geniService.getGeni(geniselect);
+    }
+    @PostMapping("/genicalculate")
+    public Geniresult getGeniselect(@RequestBody Genicalculate genicalculate) {
+        return geniService.GeniCalculate(genicalculate);
     }
 }
