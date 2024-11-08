@@ -1,0 +1,119 @@
+package com.karry.springbootmybatis.service.impl;
+
+import com.karry.springbootmybatis.mapper.HumanRMapper;
+import com.karry.springbootmybatis.pojo.homenum;
+import com.karry.springbootmybatis.pojo.humanRes;
+import com.karry.springbootmybatis.service.HumanRService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+@Service
+public class HumanRServiceImpl implements HumanRService {
+
+    @Autowired
+    private HumanRMapper humanRMapper;
+    @Autowired
+    private homenum homenum;
+
+    @Override
+    public humanRes getAll() {
+        try {
+            List<Map<String, Object>> rawData = humanRMapper.getAll();
+            humanRes result = new humanRes();
+
+            result.setYear(new ArrayList<>());
+            result.setLocation(new ArrayList<>());
+            result.setStage(new ArrayList<>());
+            result.setTNum(new ArrayList<>());
+            result.setSNum(new ArrayList<>());
+            result.setSTratio(new ArrayList<>());
+
+            for (Map<String, Object> entry : rawData) {
+                result.getYear().add((Integer) entry.get("year"));
+                result.getTNum().add((Integer) entry.get("Tnum"));
+                result.getSNum().add((Integer) entry.get("Snum"));
+                result.getLocation().add((String) entry.get("location"));
+                result.getStage().add((String) entry.get("stage"));
+                result.getSTratio().add((Double) entry.get("STratio"));
+            }
+
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new humanRes();
+        }
+    }
+
+
+    @Override
+    public humanRes getFilteredData(Integer year, String stage, String location) {
+        try {
+            List<Map<String, Object>> rawData = humanRMapper.getFilteredData(year, stage, location);
+            humanRes result = new humanRes();
+
+            result.setYear(new ArrayList<>());
+            result.setLocation(new ArrayList<>());
+            result.setStage(new ArrayList<>());
+            result.setTNum(new ArrayList<>());
+            result.setSNum(new ArrayList<>());
+            result.setSTratio(new ArrayList<>());
+
+            for (Map<String, Object> entry : rawData) {
+                result.getYear().add((Integer) entry.get("year"));
+                result.getTNum().add((Integer) entry.get("Tnum"));
+                result.getSNum().add((Integer) entry.get("Snum"));
+                result.getLocation().add((String) entry.get("location"));
+                result.getStage().add((String) entry.get("stage"));
+                result.getSTratio().add((Double) entry.get("STratio"));
+            }
+
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new humanRes();
+        }
+    }
+
+    @Override
+    public homenum getHomenum() {//将有数据的呈现在主页面上
+        try {
+            List<Map<String, Object>> rawData = humanRMapper.getEduCost();//用于获取教育经费
+            List<Map<String, Object>> rawData2= humanRMapper.getNationalGDP();//用于获取GDP
+            List<Map<String, Object>> rawData3= humanRMapper.getCulCost();//用于获取文化经费
+            List<Map<String, Object>> areadata= humanRMapper.getArea();//用于获取面积
+            double totalEduCost = 0;
+            double gdp = 0;
+            double totalCulCost = 0;
+            double area=0;
+            for (Map<String, Object> entry : rawData) {
+                totalEduCost += (Double) entry.get("EduCost");
+            }
+            //System.out.println("totalEduCost: " + totalEduCost);
+            for (Map<String, Object> entry : rawData3) {
+                totalCulCost += (Double) entry.get("CulCost");
+            }
+            for (Map<String, Object> entry : areadata) {
+                area += (Double) entry.get("area");
+            }
+            gdp=(Double) rawData2.get(0).get("gdp");
+            homenum result = new homenum();
+            result.setAllCost(totalEduCost);
+            if (!rawData2.isEmpty()) {
+                result.setGdp(gdp);
+            } else {
+                // 可以设置一个默认值或者进行其他逻辑处理
+                result.setGdp(0.0);  // 例如，设为0.0或适当的默认值
+            }
+            result.setCulCost(totalCulCost);
+            result.setArea(area);
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new homenum();
+        }
+    }
+}
