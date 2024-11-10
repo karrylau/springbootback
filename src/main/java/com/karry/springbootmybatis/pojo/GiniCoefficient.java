@@ -1,24 +1,31 @@
 package com.karry.springbootmybatis.pojo;
 
 public class GiniCoefficient {
-    private Integer year;
-    private Double giniCoefficient;
-   public GiniCoefficient() {
+
+    private Double value;
+    private String name;
+
+    public GiniCoefficient() {
     }
-    public GiniCoefficient(Integer year, Double giniCoefficient) {
-        this.year = year;
-        this.giniCoefficient = giniCoefficient;
+
+    public GiniCoefficient(String name ,Double giniCoefficient) {
+        this.value = giniCoefficient;
+        this.name = name;
     }
-    public Integer getYear() {
-        return year;
+
+    public Double getValue() {
+        return value;
     }
-    public void setYear(Integer year) {
-        this.year = year;
+
+    public void setValue(Double value) {
+        this.value = value;
     }
-    public Double getGiniCoefficient() {
-        return giniCoefficient;
+
+    public String getName() {
+        return name;
     }
-    public void setGiniCoefficient(Double giniCoefficient) {
-        this.giniCoefficient = giniCoefficient;
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

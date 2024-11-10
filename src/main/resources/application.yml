@@ -1,8 +1,9 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:postgresql://localhost:5432/mybatis
     username: postgres
-    password: weijinqi20040811
+    password: 1234
 server:
   port: 9090
+

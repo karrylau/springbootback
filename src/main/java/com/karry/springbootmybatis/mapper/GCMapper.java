@@ -10,4 +10,5 @@ import java.util.List;
 public interface GCMapper {
     @Select("select * from \"gcjhs\"" )
     List<GiniCoefficient> listfcec();
+
 }

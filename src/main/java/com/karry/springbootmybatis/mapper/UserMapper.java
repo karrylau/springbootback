@@ -18,7 +18,7 @@ public interface UserMapper {
     List<User> list();
 
     @Insert("INSERT INTO \"user\"(\"name\", \"password\") VALUES(#{name}, #{password})")
-    void insert(User user);
+      void insert(User user);
 
     // 保留注释掉的方法供参考
     // @Select("SELECT * FROM \"user\" LIMIT #{start},#{end}")

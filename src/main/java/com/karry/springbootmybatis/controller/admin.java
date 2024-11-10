@@ -27,6 +27,8 @@ public class admin {
 //        if (user.getName() == null || user.getPassword().isEmpty()) {
 //            return result.error("数据输入不合法");
 //        }
+        System.out.println(user);
+
         if (StrUtil.isBlank(user.getName()) || StrUtil.isBlank(user.getPassword())) {
             return result.error("数据输入不合法");
         }
