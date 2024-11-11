@@ -20,4 +20,6 @@ public interface MaterialResourceMapper {
 
     @Select("SELECT \"fixedassets\" FROM \"material resources\" WHERE location = '全国' AND stage = '高中' AND year IN (2016, 2017, 2018, 2019, 2020) ORDER BY year ASC")
     List<Map<String, Object>> gethighSchoolData();
+
+
 }

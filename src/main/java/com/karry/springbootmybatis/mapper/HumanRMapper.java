@@ -25,4 +25,8 @@ public interface HumanRMapper {
 
     @Select("SELECT \"area\" FROM \"material resources\" WHERE year = 2020 AND location = '全国'")//这里的year是一个数字，所以不需要单引号
     List<Map<String, Object>> getArea();
+
+    @Select("SELECT \"fixedassets\" FROM \"material resources\" WHERE year = 2020 AND location = '全国'")
+    List<Map<String, Object>> getfixedassets();
+
 }
