@@ -8,6 +8,6 @@ import java.util.List;
 
 @Mapper
 public interface OnlineLearningPlatformUsageMapper {
-    @Select("SELECT * FROM \"Geni\".\"Online learning platform usage\"")
+    @Select("SELECT * FROM \"Online learning platform usage\"")
     List<OnlineLearningPlatformUsage> findAll();
 }

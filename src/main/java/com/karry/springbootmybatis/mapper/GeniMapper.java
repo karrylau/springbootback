@@ -9,12 +9,12 @@ import java.util.Map;
 @Mapper
 public interface GeniMapper {
 
-    @Select("SELECT * FROM \"Geni\".\"financial_res\" WHERE year = #{year} AND stage = #{stage}")
+    @Select("SELECT * FROM \"financial_res\" WHERE year = #{year} AND stage = #{stage}")
     List<Map<String, Object>> getGeni1(@Param("year") Integer year, @Param("stage") String stage);
 
-    @Select("SELECT * FROM \"Geni\".\"human_res\" WHERE year = #{year} AND stage = #{stage}")
+    @Select("SELECT * FROM \"human_res\" WHERE year = #{year} AND stage = #{stage}")
     List<Map<String, Object>> getGeni2(@Param("year") Integer year, @Param("stage") String stage);
 
-    @Select("SELECT * FROM \"Geni\".\"financial_res\" WHERE year = #{year} AND stage = #{stage} AND location = #{location}")
+    @Select("SELECT * FROM \"financial_res\" WHERE year = #{year} AND stage = #{stage} AND location = #{location}")
     List<Map<String, Object>> getlocationGeni(@Param("year") Integer year, @Param("stage") String stage, @Param("location") String location);
 }
