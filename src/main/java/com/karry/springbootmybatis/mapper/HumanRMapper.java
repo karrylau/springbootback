@@ -29,4 +29,21 @@ public interface HumanRMapper {
     @Select("SELECT \"fixedassets\" FROM \"material resources\" WHERE year = 2020 AND location = '全国'")
     List<Map<String, Object>> getfixedassets();
 
+    @Select("SELECT \"Snum\" FROM \"human_res\" WHERE stage='小学' AND location='江苏省' AND year IN (2018, 2019, 2020, 2021, 2022) ORDER BY year ASC")
+    List<Map<String, Object>> getPrimarySchoolSnum();
+
+    @Select("SELECT \"Snum\" FROM \"human_res\" WHERE stage='初中' AND location='江苏省' AND year IN (2018, 2019, 2020, 2021, 2022) ORDER BY year ASC")
+    List<Map<String, Object>> getMiddleSchoolSnum();
+
+    @Select("SELECT \"Snum\" FROM \"human_res\" WHERE stage='高中' AND location='江苏省' AND year IN (2018, 2019, 2020, 2021, 2022) ORDER BY year ASC")
+    List<Map<String, Object>> getHighSchoolSnum();
+
+    @Select("SELECT \"Tnum\" FROM \"human_res\" WHERE stage='小学' AND location='江苏省' AND year IN (2018, 2019, 2020, 2021, 2022) ORDER BY year ASC")
+    List<Map<String, Object>> getPrimarySchoolTnum();
+
+    @Select("SELECT \"Tnum\" FROM \"human_res\" WHERE stage='初中' AND location='江苏省' AND year IN (2018, 2019, 2020, 2021, 2022) ORDER BY year ASC")
+    List<Map<String, Object>> getMiddleSchoolTnum();
+
+    @Select("SELECT \"Tnum\" FROM \"human_res\" WHERE stage='高中' AND location='江苏省' AND year IN (2018, 2019, 2020, 2021, 2022) ORDER BY year ASC")
+    List<Map<String, Object>> getHighSchoolTnum();
 }

@@ -3,6 +3,8 @@ package com.karry.springbootmybatis.service.impl;
 import com.karry.springbootmybatis.mapper.HumanRMapper;
 import com.karry.springbootmybatis.pojo.homenum;
 import com.karry.springbootmybatis.pojo.humanRes;
+import com.karry.springbootmybatis.pojo.fixeddong;
+import com.karry.springbootmybatis.pojo.numdong;
 import com.karry.springbootmybatis.service.HumanRService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -132,6 +134,71 @@ public class HumanRServiceImpl implements HumanRService {
         } catch (Exception e) {
             e.printStackTrace();
             return new homenum();
+        }
+    }
+
+
+
+    @Override
+    public numdong getSnum() {//将有数据的呈现在主页面上
+        try {
+            List<Map<String, Object>> rawData = humanRMapper.getPrimarySchoolSnum();
+            List<Map<String, Object>> rawData2= humanRMapper.getMiddleSchoolSnum();
+            List<Map<String, Object>> rawData3= humanRMapper.getHighSchoolSnum();
+            List<Integer> highdata = new ArrayList<>();
+            List<Integer> middleData = new ArrayList<>();
+            List<Integer> primaryData = new ArrayList<>();
+            for (Map<String, Object> data : rawData) {
+                primaryData.add((Integer) data.get("Snum"));
+            }
+            for (Map<String, Object> data : rawData2) {
+                middleData.add((Integer) data.get("Snum"));
+            }
+            for (Map<String, Object> data : rawData3) {
+                highdata.add((Integer) data.get("Snum"));
+            }
+
+            numdong result = new numdong();
+
+            result.setPrimary(primaryData);
+            result.setMiddle(middleData);
+            result.setHigh(highdata);
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new numdong();
+        }
+    }
+
+
+    @Override
+    public numdong getTnum() {//将有数据的呈现在主页面上
+        try {
+            List<Map<String, Object>> rawData = humanRMapper.getPrimarySchoolTnum();
+            List<Map<String, Object>> rawData2= humanRMapper.getMiddleSchoolTnum();
+            List<Map<String, Object>> rawData3= humanRMapper.getHighSchoolTnum();
+            List<Integer> highdata = new ArrayList<>();
+            List<Integer> middleData = new ArrayList<>();
+            List<Integer> primaryData = new ArrayList<>();
+            for (Map<String, Object> data : rawData) {
+                primaryData.add((Integer) data.get("Tnum"));
+            }
+            for (Map<String, Object> data : rawData2) {
+                middleData.add((Integer) data.get("Tnum"));
+            }
+            for (Map<String, Object> data : rawData3) {
+                highdata.add((Integer) data.get("Tnum"));
+            }
+
+            numdong result = new numdong();
+
+            result.setPrimary(primaryData);
+            result.setMiddle(middleData);
+            result.setHigh(highdata);
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new numdong();
         }
     }
 }
