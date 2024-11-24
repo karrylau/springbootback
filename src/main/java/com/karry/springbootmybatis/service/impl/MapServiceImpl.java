@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-public class MapServicelmpl implements MapService {
+public class MapServiceImpl implements MapService {
     @Autowired
     private MapMapper schoolMapper;
 

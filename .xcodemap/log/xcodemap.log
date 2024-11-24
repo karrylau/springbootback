@@ -1,2 +1,6 @@
 2024-10-29 08:13:29 WARN Thread-0 - Graceful shutdown..., metrics a:7399	b:22	c:79200	d:70	e:0	f:33	g:33	h:3	i:1	j:3	k:1	
 2024-11-07 16:28:54 WARN Thread-0 - Graceful shutdown..., metrics a:7401	b:24	c:79203	d:74	e:0	f:35	g:35	h:3	i:1	j:3	k:1	
+2024-11-24 10:31:59 WARN http-nio-9090-exec-1 - Generate classDef for className:[Lorg/postgresql/jdbc/PgConnection$ReadOnlyBehavior; loader:jdk.internal.loader.ClassLoaders$AppClassLoader@63947c6b
+2024-11-24 10:31:59 WARN http-nio-9090-exec-1 - Generate methodDef for className:[Lorg/postgresql/jdbc/PgConnection$ReadOnlyBehavior; methodName:clone methodDesc:()Ljava/lang/Object; loader:jdk.internal.loader.ClassLoaders$AppClassLoader@63947c6b
+2024-11-24 10:31:59 WARN http-nio-9090-exec-1 - Generate methodDef for className:java/lang/invoke/DirectMethodHandle methodName:invoke methodDesc:()Ljava/lang/Object; loader:null
+2024-11-24 10:35:00 WARN Thread-0 - Graceful shutdown..., metrics a:8711	b:75	c:93437	d:905	e:0	f:12217	g:5930	h:340	i:3243	j:317	k:1824	

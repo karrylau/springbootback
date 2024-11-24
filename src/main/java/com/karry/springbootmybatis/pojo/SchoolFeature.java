@@ -18,7 +18,7 @@ public class SchoolFeature
     }
 
     // Nested classes for Geometry and Properties
-
+    @Data
     public static class Geometry {
         private String type;
         private double[] coordinates;
@@ -30,7 +30,7 @@ public class SchoolFeature
 
         // Getters and setters
     }
-
+    @Data
     public static class Properties {
         private double weight;
         private String name;

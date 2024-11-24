@@ -3,6 +3,7 @@ import com.karry.springbootmybatis.service.MapService;
 import com.karry.springbootmybatis.pojo.SchoolFeature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,7 +17,7 @@ public class MapController
     @Autowired
     private MapService schoolService;
 
-    @GetMapping("/dataset")
+    @PostMapping("/dataset")
     public Map<String, List<SchoolFeature>> getSchoolDataset() {
         return schoolService.getSchoolDataset();
     }
