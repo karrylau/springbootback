@@ -8,4 +8,5 @@ import org.springframework.stereotype.Component;
 public class Geniresult {
     private Integer[] years;
     private Double[] Geni;
+
 }

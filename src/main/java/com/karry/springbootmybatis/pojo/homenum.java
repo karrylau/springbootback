@@ -9,5 +9,5 @@ public class homenum {
     private Double allCost;
     private Double culCost;
     private Double area;
-    private Double FixedAssets;
+    private Double fixedAssets;
 }

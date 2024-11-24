@@ -2,7 +2,6 @@ package com.karry.springbootmybatis.controller;
 
 import com.karry.springbootmybatis.pojo.homenum;
 import com.karry.springbootmybatis.pojo.humanRes;
-import com.karry.springbootmybatis.pojo.fixeddong;
 import com.karry.springbootmybatis.pojo.numdong;
 import com.karry.springbootmybatis.service.HumanRService;
 import org.springframework.beans.factory.annotation.Autowired;
