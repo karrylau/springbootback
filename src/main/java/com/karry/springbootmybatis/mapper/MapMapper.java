@@ -6,13 +6,15 @@ import java.util.Map;
 
 @Mapper
 public interface MapMapper {
-    @Select("SELECT * FROM \"map\"")
+    @Select("SELECT * FROM \"map\" WHERE weight IS NOT NULL")
     List<Map<String, Object>> getAllSchools();
 
-    @Select("SELECT school, longitude, latitude, weight FROM \"map\" ")
+    @Select("SELECT * FROM \"map\" WHERE weight IS NULL ORDER BY location ASC")
     List<Map<String, Object>> getCoordinate();
 
-    @Select("SELECT school, longitude, latitude, weight FROM \"map\" ")
-    List<Map<String, Object>> getTeacherNum();
+    @Select("SELECT location,\"Tnum\",\"Snum\" FROM \"human_res\" WHERE year='2021' AND stage='小学' ORDER BY location ASC")
+    List<Map<String, Object>> getNum();
 
+    @Select("SELECT location,fixedassets FROM \"material resources\" WHERE year='2021' AND stage='小学' ORDER BY location ASC")
+    List<Map<String, Object>> getFixed();
 }

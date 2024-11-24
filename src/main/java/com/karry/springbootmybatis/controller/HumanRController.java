@@ -19,7 +19,7 @@ public class HumanRController {
         return humanRService.getAll();
     }
 
-    @PostMapping("/home")
+    @GetMapping("/home")
     public homenum gethomenum() {
         return humanRService.getHomenum();
     }
@@ -34,12 +34,12 @@ public class HumanRController {
         return humanRService.getFilteredData(year, stage, location);
     }
 
-    @PostMapping("/snumdata")
+    @GetMapping("/snumdata")
     public numdong getsnum(){
         return humanRService.getSnum();
     }
 
-    @PostMapping("/teacherdata")
+    @GetMapping("/teacherdata")
     public numdong gettnum(){
         return humanRService.getTnum();
     }

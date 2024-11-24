@@ -35,7 +35,7 @@ public class MapServiceImpl implements MapService {
 
     @Override
     public map getMapData() {
-        map result = null;
+
         List<Map<String, Object>> schools = schoolMapper.getAllSchools();
         List<feature> SchoolData = new ArrayList<>();
         int n=0;
@@ -50,15 +50,39 @@ public class MapServiceImpl implements MapService {
         }
 
         List<Map<String, Object>> coordinate = schoolMapper.getCoordinate();
-        List<Map<String, Object>> teachernum = schoolMapper.getTeacherNum();
+        List<Map<String, Object>> teachernum = schoolMapper.getNum();
+        List<Map<String, Object>> fixed = schoolMapper.getFixed();
         List<feature> TeacherData = new ArrayList<>();
+        List<feature> StudentData = new ArrayList<>();
+        List<feature> FixedAssets = new ArrayList<>();
+        for (int i = 0; i < coordinate.size(); i++) {
+            feature t = new feature();//分别获取两库数据
+            feature k = new feature();
+            feature p = new feature();
+            t.setWeight(Double.valueOf((Integer) teachernum.get(i).get("Tnum")));
+            k.setWeight(Double.valueOf((Integer) teachernum.get(i).get("Snum")));
+            p.setWeight((Double) fixed.get(i).get("fixedassets"));
+            t.setLongitude((Double)coordinate.get(i).get("longitude"));
+            t.setLatitude((Double) coordinate.get(i).get("latitude"));
+            t.setName((String) coordinate.get(i).get("location"));
+            k.setLongitude((Double)coordinate.get(i).get("longitude"));
+            k.setLatitude((Double) coordinate.get(i).get("latitude"));
+            k.setName((String) coordinate.get(i).get("location"));
+            p.setLongitude((Double)coordinate.get(i).get("longitude"));
+            p.setLatitude((Double) coordinate.get(i).get("latitude"));
+            p.setName((String) coordinate.get(i).get("location"));
+            //暂时以EduCost为例，后续换成占位符，接收数据加入费用类型即可
+            TeacherData.add(t);
+            StudentData.add(k);
+            FixedAssets.add(p);
+        }
 
 
-
-//        List<Map<String, Object>> schools = schoolMapper.getAllSchools();
-//        List<Map<String, Object>> schools = schoolMapper.getAllSchools();
-
+        map result = new map();
         result.setSchools(SchoolData);
+        result.setTeachernum(TeacherData);
+        result.setStudentnum(SchoolData);
+        result.setFixedassets(FixedAssets);
         return result;
     }
 }
