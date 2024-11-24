@@ -87,7 +87,7 @@ public class HumanRServiceImpl implements HumanRService {
             List<Map<String, Object>> rawData2= humanRMapper.getNationalGDP();//用于获取GDP
             List<Map<String, Object>> rawData3= humanRMapper.getCulCost();//用于获取文化经费
             List<Map<String, Object>> areadata= humanRMapper.getArea();//用于获取面积
-            List<Map<String, Object>> rawdata4= humanRMapper.getfixedassets();
+            List<Map<String, Object>> rawData4= humanRMapper.getfixedassets();
             double totalEduCost = 0;
             double gdp = 0;
             double totalCulCost = 0;
@@ -106,10 +106,10 @@ public class HumanRServiceImpl implements HumanRService {
                 area += (Double) entry.get("area");
             }//计算区域总和
 
-            for (Map<String, Object> entry :rawdata4) {
+            for (Map<String, Object> entry :rawData4) {
                 fixedasserts += (Double) entry.get("fixedassets");
             }//计算固有资产总和
-            System.out.println("totalEduCost: " + fixedasserts);
+//            System.out.println("totalEduCost: " + fixedasserts);
 
             gdp=(Double) rawData2.get(0).get("gdp");
 
@@ -129,7 +129,7 @@ public class HumanRServiceImpl implements HumanRService {
             result.setArea(area);
 
             result.setFixedAssets(fixedasserts);
-            System.out.println("totalEduCost: " + result.getFixedAssets());
+//            System.out.println("totalEduCost: " + result.getFixedAssets());
             return result;
         } catch (Exception e) {
             e.printStackTrace();

@@ -20,6 +20,8 @@ public class GeniServiceImpl implements GeniService {
         return null;
     } //空
 
+
+
     @Override
     public Geniresult getGeni(Geniselect geniselect) {         //根据年份寻找表中数据计算基尼系数
         String stage = geniselect.getPeopleselect().getValue();
@@ -72,42 +74,57 @@ public class GeniServiceImpl implements GeniService {
         }
     }
 
+
+
     @Override
-    public Geniresult GeniCalculate(Genicalculate genicalculate) {     //根据前端数据计算基尼系数
-        Geniresult result = new Geniresult();
-        List<Integer> yearsList = new ArrayList<>();
-        List<Double> geniList = new ArrayList<>();
-        Genipara[] para = genicalculate.getPara();
-        int n=0;
+    public geniCalResult GeniCalculate(Genicalculate genicalculate) {     //根据前端数据计算基尼系数
+        geniCalResult result = new geniCalResult();
+        Genipara para1 = genicalculate.getShiye();
+        Genipara para2 = genicalculate.getGongyong();
         try {
-            for (int year = genicalculate.getStartyear(); year <= genicalculate.getEndyear(); year++) {
-                yearsList.add(year);
-                int allpeople = para[n].getAllpeople();
-                double allmoney = para[n].getAllmoney();
-                Integer[] snum = para[n].getSnum();
-                Double[] cost = para[n++].getCost();
-                double geni = 0;
-                double pi = 0;
-                double wi = 0;
-                double qi = 0;
-                for (int i = 0; i < snum.length; i++) {
-                    pi = ((double) snum[i] / allpeople);
-                    wi = ((double) cost[i]/ allmoney);
-                    qi += wi;
-                    double gi = pi * (2 * qi - wi);
-                    geni += gi;
+            //for (int year = genicalculate.getStartyear(); year <= genicalculate.getEndyear(); year++) {
+                //yearsList.add(year);                  //计算多年基尼系数所需循环
+            //yearsList.add(genicalculate.getStartyear());//只计算一年的基尼系数
+                int allpeople1 = para1.getPsum();
+                double allmoney1 = para1.getMsum();
+                Integer[] snum1 = para1.getPnum();
+                Double[] cost1 = para1.getMnum();
+                double geni1 = 0;
+                double pi1 = 0;
+                double wi1 = 0;
+                double qi1 = 0;
+                for (int i = 0; i < snum1.length; i++) {
+                    pi1 = ((double) snum1[i] / allpeople1);
+                    wi1 = ((double) cost1[i]/ allmoney1);
+                    qi1 += wi1;
+                    double gi1 = pi1 * (2 * qi1 - wi1);
+                    geni1 += gi1;
                     //System.out.println("pi: " + pi + " wi: " + wi+ " qi: " + qi + " gi: " + gi+ " geni: " + geni);
                 }//计算基尼系数
-                geniList.add(1 - geni);
-            }
-            Integer[] years = yearsList.toArray(new Integer[0]);
-            Double[] geni = geniList.toArray(new Double[0]);
-            result.setGeni(geni);
-            result.setYears(years);
+            result.setShiye(1 - geni1);
+
+            int allpeople2 = para2.getPsum();
+            double allmoney2 = para2.getMsum();
+            Integer[] snum2 = para2.getPnum();
+            Double[] cost2 = para2.getMnum();
+            double geni2 = 0;
+            double pi2 = 0;
+            double wi2 = 0;
+            double qi2 = 0;
+            for (int i = 0; i < snum2.length; i++) {
+                pi2 = ((double) snum2[i] / allpeople2);
+                wi2 = ((double) cost2[i]/ allmoney2);
+                qi2 += wi2;
+                double gi2 = pi2 * (2 * qi2 - wi2);
+                geni2 += gi2;
+                //System.out.println("pi: " + pi + " wi: " + wi+ " qi: " + qi + " gi: " + gi+ " geni: " + geni);
+            }//计算基尼系数
+
+            result.setGongyong(1 - geni2);
             return result;
         }catch (Exception e) {
             e.printStackTrace();
-            return new Geniresult();
+            return new geniCalResult();
         }
     }
 }

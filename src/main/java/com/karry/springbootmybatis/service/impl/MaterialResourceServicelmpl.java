@@ -2,6 +2,7 @@ package com.karry.springbootmybatis.service.impl;
 
 import com.karry.springbootmybatis.mapper.MaterialResourceMapper;
 import com.karry.springbootmybatis.pojo.MaterialResource;
+import com.karry.springbootmybatis.pojo.numdong;
 import com.karry.springbootmybatis.service.MaterialResourceService;
 import org.springframework.stereotype.Service;
 import com.karry.springbootmybatis.pojo.fixeddong;
@@ -60,7 +61,7 @@ public class MaterialResourceServicelmpl implements MaterialResourceService{
     public fixeddong getFixedData() {
         List<Map<String, Object>> rawData = materialResourceMapper.getPrimarySchoolData();
         List<Map<String, Object>> rawData2 = materialResourceMapper.getMiddleSchoolData();
-        List<Map<String, Object>> rawData3 = materialResourceMapper.gethighSchoolData();
+        List<Map<String, Object>> rawData3 = materialResourceMapper.getHighSchoolData();
         List<Double> highdata = new ArrayList<>();
         List<Double> middleData = new ArrayList<>();
         List<Double> primaryData = new ArrayList<>();
@@ -75,6 +76,29 @@ public class MaterialResourceServicelmpl implements MaterialResourceService{
         }
 
         fixeddong result = new fixeddong();
+        // 假设你有方法来将 List<Double> 设置为 primary 属性，或者你可以改造 fixeddong 类来接受 List<Double>
+        result.setPrimary(primaryData); // 假设 setPrimary 接受 List<Double>，这需要你在 fixeddong 类中进行相应的修改
+        result.setMiddle(middleData);
+        result.setHigh(highdata);
+        System.out.println("pd"+result.getPrimary());
+        System.out.println("md"+result.getMiddle());
+        System.out.println("hd"+result.getHigh());
+        return result;
+    }
+
+    @Override
+    public numdong getSchoolData() {
+        List<Map<String, Object>> rawData = materialResourceMapper.getSchoolNumData();
+        List<Integer> highdata = new ArrayList<>();
+        List<Integer> middleData = new ArrayList<>();
+        List<Integer> primaryData = new ArrayList<>();
+        for (Map<String, Object> data : rawData) {
+            primaryData.add((Integer) data.get("primary"));
+            middleData.add((Integer) data.get("middle"));
+            highdata.add((Integer) data.get("serior"));
+        }
+
+        numdong result = new numdong();
         // 假设你有方法来将 List<Double> 设置为 primary 属性，或者你可以改造 fixeddong 类来接受 List<Double>
         result.setPrimary(primaryData); // 假设 setPrimary 接受 List<Double>，这需要你在 fixeddong 类中进行相应的修改
         result.setMiddle(middleData);

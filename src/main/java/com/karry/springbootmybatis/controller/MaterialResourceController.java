@@ -1,6 +1,7 @@
 package com.karry.springbootmybatis.controller;
 
 import com.karry.springbootmybatis.pojo.MaterialResource;
+import com.karry.springbootmybatis.pojo.numdong;
 import com.karry.springbootmybatis.service.impl.MaterialResourceServicelmpl;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,5 +29,9 @@ public class MaterialResourceController {
     @GetMapping("/fixeddata")
     public fixeddong getFixedData() {
         return materialResourceService.getFixedData();
+    }
+    @GetMapping("/schooldata")
+    public numdong getSchoolData(){
+        return materialResourceService.getSchoolData();
     }
 }

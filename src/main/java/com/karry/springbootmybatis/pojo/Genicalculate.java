@@ -5,7 +5,8 @@ import org.springframework.stereotype.Component;
 @Data
 @Component
 public class Genicalculate {
-    private Integer startyear;
-    private Integer endyear;
-    private Genipara[] para;
+    //private Integer startyear;
+    //private Integer endyear;  //目前只计算一年的基尼系数
+    private Genipara shiye;
+    private Genipara gongyong;
 }

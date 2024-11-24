@@ -8,5 +8,5 @@ public interface GeniService {
 
     Geniresult getGeni(Geniselect geniselect);
 
-    Geniresult GeniCalculate(Genicalculate genicalculate);
+    geniCalResult GeniCalculate(Genicalculate genicalculate);
 }

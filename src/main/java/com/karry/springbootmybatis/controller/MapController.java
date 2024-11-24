@@ -1,6 +1,6 @@
 package com.karry.springbootmybatis.controller;
 import com.karry.springbootmybatis.service.MapService;
-import com.karry.springbootmybatis.pojo.SchoolFeature;
+import com.karry.springbootmybatis.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,5 +20,10 @@ public class MapController
     @PostMapping("/dataset")
     public Map<String, List<SchoolFeature>> getSchoolDataset() {
         return schoolService.getSchoolDataset();
+    }
+
+    @PostMapping("/mapdata")
+    public map getMapData(){
+        return schoolService.getMapData();
     }
 }

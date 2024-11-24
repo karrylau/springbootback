@@ -5,8 +5,8 @@ import org.springframework.stereotype.Component;
 @Data
 @Component
 public class Genipara {
-    private Integer[] snum;
-    private Double[] cost;
-    private Integer allpeople;
-    private Double allmoney;
+    private Integer[] pnum;
+    private Integer psum;
+    private Double[] mnum;
+    private Double msum;
 }

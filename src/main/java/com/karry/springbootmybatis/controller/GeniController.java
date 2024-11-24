@@ -17,7 +17,7 @@ public class GeniController {
         return geniService.getGeni(geniselect);
     }
     @PostMapping("/genicalculate")
-    public Geniresult getGeniselect(@RequestBody Genicalculate genicalculate) {
+    public geniCalResult getGeniselect(@RequestBody Genicalculate genicalculate) {
         return geniService.GeniCalculate(genicalculate);
     }
 }
