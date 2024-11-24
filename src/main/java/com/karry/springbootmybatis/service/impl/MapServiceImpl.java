@@ -81,7 +81,7 @@ public class MapServiceImpl implements MapService {
         map result = new map();
         result.setSchools(SchoolData);
         result.setTeachernum(TeacherData);
-        result.setStudentnum(SchoolData);
+        result.setStudentnum(StudentData);
         result.setFixedassets(FixedAssets);
         return result;
     }
