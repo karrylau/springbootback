@@ -1,6 +1,6 @@
-com\karry\springbootmybatis\service\impl\UserServiceImpl.class
 com\karry\App.class
-com\karry\springbootmybatis\service\UserService.class
-com\karry\springbootmybatis\controller\UserController.class
 com\karry\springbootmybatis\mapper\UserMapper.class
+com\karry\springbootmybatis\service\UserService.class
+com\karry\springbootmybatis\service\impl\UserServiceImpl.class
+com\karry\springbootmybatis\controller\UserController.class
 com\karry\springbootmybatis\pojo\User.class

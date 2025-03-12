@@ -22,7 +22,7 @@ public class MapController
         return schoolService.getSchoolDataset();
     }
 
-    @PostMapping("/mapdata")
+    @PostMapping("/mapdata")  //地图数据传输
     public map getMapData(){
         return schoolService.getMapData();
     }

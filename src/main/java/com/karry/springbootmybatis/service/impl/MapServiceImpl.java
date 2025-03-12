@@ -59,15 +59,22 @@ public class MapServiceImpl implements MapService {
             feature t = new feature();//分别获取两库数据
             feature k = new feature();
             feature p = new feature();
+
+            //weight赋值
             t.setWeight(Double.valueOf((Integer) teachernum.get(i).get("Tnum")));
             k.setWeight(Double.valueOf((Integer) teachernum.get(i).get("Snum")));
             p.setWeight((Double) fixed.get(i).get("fixedassets"));
+
+
+            //坐标赋值
             t.setLongitude((Double)coordinate.get(i).get("longitude"));
             t.setLatitude((Double) coordinate.get(i).get("latitude"));
             t.setName((String) coordinate.get(i).get("location"));
+
             k.setLongitude((Double)coordinate.get(i).get("longitude"));
             k.setLatitude((Double) coordinate.get(i).get("latitude"));
             k.setName((String) coordinate.get(i).get("location"));
+
             p.setLongitude((Double)coordinate.get(i).get("longitude"));
             p.setLatitude((Double) coordinate.get(i).get("latitude"));
             p.setName((String) coordinate.get(i).get("location"));

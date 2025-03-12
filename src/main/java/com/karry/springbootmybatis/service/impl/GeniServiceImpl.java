@@ -6,9 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.karry.springbootmybatis.mapper.GeniMapper;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class GeniServiceImpl implements GeniService {
@@ -46,14 +44,14 @@ public class GeniServiceImpl implements GeniService {
 
                 for (int i = 0; i < GeniData1.size(); i++) {      //分别获取两库数据
                     allpeople += (Integer) GeniData2.get(i).get("Snum");
-                    allmoney += (Double) GeniData1.get(i).get("EduCost");   //暂时以EduCost为例，后续换成占位符，接收数据加入费用类型即可
+                    allmoney += (Double) GeniData1.get(i).get(geniselect.getMoneyselect());   //暂时以EduCost为例，后续换成占位符，接收数据加入费用类型即可
                 }//计算总人数，总资金
                 //System.out.println("allpeople: " + allpeople + " allmoney: " + allmoney);
 
                 for (int i = 0; i < GeniData1.size(); i++) {      //逐步计算基尼系数
                     Integer snum = (Integer) GeniData2.get(i).get("Snum");
                     pi = ((double) snum / allpeople);
-                    wi = ((Double) GeniData1.get(i).get("EduCost") / allmoney);
+                    wi = ((double) GeniData1.get(i).get(geniselect.getMoneyselect()) / allmoney);
                     qi += wi;
                     double gi = pi * (2 * qi - wi);
                     geni += gi;
@@ -117,14 +115,66 @@ public class GeniServiceImpl implements GeniService {
                 qi2 += wi2;
                 double gi2 = pi2 * (2 * qi2 - wi2);
                 geni2 += gi2;
+                System.out.println(i);
                 //System.out.println("pi: " + pi + " wi: " + wi+ " qi: " + qi + " gi: " + gi+ " geni: " + geni);
             }//计算基尼系数
 
             result.setGongyong(1 - geni2);
+            System.out.println(result);
             return result;
         }catch (Exception e) {
             e.printStackTrace();
             return new geniCalResult();
         }
+    }
+
+
+
+    @Override
+    public List<Map<String,Searchresult>> SearchGeni(Integer year) {
+        List<Map<String, Object>> GeniData1 = GeniMapper.searchmoney(year);
+        List<Map<String, Object>> GeniData2 = GeniMapper.searchnum(year);
+        List<Map<String,Searchresult>>result = new ArrayList<>();
+
+        Map<String,Double[]>totals = new HashMap<>();
+        for (Map<String,Object> data : GeniData1) {
+            String location = (String)data.get("location");
+            Double cul = (Double)data.get("CulCost");
+            Double pub = (Double)data.get("PubCost");
+            totals.putIfAbsent(location, new Double[]{0.0, 0.0});
+            Double[] tal = totals.get(location);
+            tal[0] += cul;
+            tal[1] += pub;
+        }
+        List<Map<String,Object>> data1 = new ArrayList<>();
+        for (Map.Entry<String,Double[]> entry : totals.entrySet()) {
+            Map<String,Object> map = new HashMap<>();
+            map.put("location", entry.getKey());
+            map.put("CulCost", entry.getValue()[0]);
+            map.put("PubCost", entry.getValue()[1]);
+            data1.add(map);
+        }
+        for (Map<String,Object> data : data1) {
+            String location = (String) data.get("location");
+            Map<String,Searchresult> map = new HashMap<>();
+            Searchresult searchresult = new Searchresult();
+            searchresult.setCulcost((Double)data.get("CulCost"));
+            searchresult.setPubcost((Double)data.get("PubCost"));
+            searchresult.setStu(0);
+            map.put(location, searchresult);
+            result.add(map);
+        }
+
+
+
+        result.sort(Comparator.comparing(map -> map.keySet().iterator().next()));
+        for(Map<String,Object> data : GeniData2){
+            for(Map<String,Searchresult>resultdata : result){
+                if(resultdata.containsKey(data.get("location"))){
+                    resultdata.get(data.get("location")).setStu(resultdata.get(data.get("location")).getStu()+(Integer) data.get("Snum"));
+                }
+            }
+        }
+        return result;
     }
 }

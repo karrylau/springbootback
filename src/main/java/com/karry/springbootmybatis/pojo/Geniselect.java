@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 public class Geniselect {
     private peopleselect peopleselect;
     private timeselect timeselect;
+    private String moneyselect;
 
     public Geniselect() {
     }

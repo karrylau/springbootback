@@ -7,9 +7,9 @@ import java.util.List;
 @Data
 public class peopleselect {
     private Integer input;
-    private Integer input2;
+//    private Integer input2;
     private String value;
-    private String value2;
+//    private String value2;
 
     public peopleselect() {
     }
