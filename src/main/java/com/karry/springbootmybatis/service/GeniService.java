@@ -13,5 +13,5 @@ public interface GeniService {
 
     geniCalResult GeniCalculate(Genicalculate genicalculate);
 
-   List<Map<String,Searchresult>> SearchGeni(Integer year);
+   Map<String,Searchresult> SearchGeni(Integer year);
 }

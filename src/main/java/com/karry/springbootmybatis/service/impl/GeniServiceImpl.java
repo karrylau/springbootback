@@ -91,7 +91,8 @@ public class GeniServiceImpl implements GeniService {
                 double pi1 = 0;
                 double wi1 = 0;
                 double qi1 = 0;
-                for (int i = 0; i < snum1.length; i++) {
+                System.out.println(snum1.length);
+                for (int i = 0; i < snum1.length/2; i++) {
                     pi1 = ((double) snum1[i] / allpeople1);
                     wi1 = ((double) cost1[i]/ allmoney1);
                     qi1 += wi1;
@@ -109,7 +110,7 @@ public class GeniServiceImpl implements GeniService {
             double pi2 = 0;
             double wi2 = 0;
             double qi2 = 0;
-            for (int i = 0; i < snum2.length; i++) {
+            for (int i = 0; i < snum2.length/2; i++) {
                 pi2 = ((double) snum2[i] / allpeople2);
                 wi2 = ((double) cost2[i]/ allmoney2);
                 qi2 += wi2;
@@ -131,50 +132,65 @@ public class GeniServiceImpl implements GeniService {
 
 
     @Override
-    public List<Map<String,Searchresult>> SearchGeni(Integer year) {
+    public Map<String, Searchresult> SearchGeni(Integer year) {
+        // 1. 从数据库获取原始数据
         List<Map<String, Object>> GeniData1 = GeniMapper.searchmoney(year);
         List<Map<String, Object>> GeniData2 = GeniMapper.searchnum(year);
-        List<Map<String,Searchresult>>result = new ArrayList<>();
 
-        Map<String,Double[]>totals = new HashMap<>();
-        for (Map<String,Object> data : GeniData1) {
-            String location = (String)data.get("location");
-            Double cul = (Double)data.get("CulCost");
-            Double pub = (Double)data.get("PubCost");
-            totals.putIfAbsent(location, new Double[]{0.0, 0.0});
-            Double[] tal = totals.get(location);
-            tal[0] += cul;
-            tal[1] += pub;
+        // 2. 使用 LinkedHashMap 保持插入顺序
+        Map<String, Searchresult> resultMap = new LinkedHashMap<>();
+
+        // 3. 处理 GeniData1：计算每个地区的累计费用
+        Map<String, Double[]> locationTotals = new HashMap<>();
+        for (Map<String, Object> data : GeniData1) {
+            String location = (String) data.get("location");
+            Double culCost = (Double) data.get("CulCost");
+            Double pubCost = (Double) data.get("PubCost");
+
+            locationTotals.putIfAbsent(location, new Double[]{0.0, 0.0});
+            Double[] totals = locationTotals.get(location);
+            totals[0] += culCost;  // 累计 CulCost
+            totals[1] += pubCost;  // 累计 PubCost
         }
-        List<Map<String,Object>> data1 = new ArrayList<>();
-        for (Map.Entry<String,Double[]> entry : totals.entrySet()) {
-            Map<String,Object> map = new HashMap<>();
+
+        // 4. 将累计数据转换为 Searchresult 对象，并按地区名排序
+        List<Map<String, Object>> sortedData = new ArrayList<>();
+        for (Map.Entry<String, Double[]> entry : locationTotals.entrySet()) {
+            Map<String, Object> map = new HashMap<>();
             map.put("location", entry.getKey());
             map.put("CulCost", entry.getValue()[0]);
             map.put("PubCost", entry.getValue()[1]);
-            data1.add(map);
+            sortedData.add(map);
         }
-        for (Map<String,Object> data : data1) {
+
+        // 按地区名排序
+        sortedData.sort(Comparator.comparing(map -> (String) map.get("location")));
+
+        // 5. 填充 resultMap
+        for (Map<String, Object> data : sortedData) {
             String location = (String) data.get("location");
-            Map<String,Searchresult> map = new HashMap<>();
-            Searchresult searchresult = new Searchresult();
-            searchresult.setCulcost((Double)data.get("CulCost"));
-            searchresult.setPubcost((Double)data.get("PubCost"));
-            searchresult.setStu(0);
-            map.put(location, searchresult);
-            result.add(map);
+            Searchresult sr = new Searchresult();
+            sr.setCulcost((Double) data.get("CulCost"));
+            sr.setPubcost((Double) data.get("PubCost"));
+            sr.setStu(0);  // 初始学生数为0
+            resultMap.put(location, sr);
         }
 
+        // 6. 处理 GeniData2：更新学生数量
+        for (Map<String, Object> data : GeniData2) {
+            String location = (String) data.get("location");
+            Integer studentNum = (Integer) data.get("Snum");
 
-
-        result.sort(Comparator.comparing(map -> map.keySet().iterator().next()));
-        for(Map<String,Object> data : GeniData2){
-            for(Map<String,Searchresult>resultdata : result){
-                if(resultdata.containsKey(data.get("location"))){
-                    resultdata.get(data.get("location")).setStu(resultdata.get(data.get("location")).getStu()+(Integer) data.get("Snum"));
-                }
+            if (resultMap.containsKey(location)) {
+                Searchresult sr = resultMap.get(location);
+                sr.setStu(sr.getStu() + studentNum);  // 累加学生数
+            } else {
+                // 可选：处理未匹配的地区（根据业务需求）
+                // Searchresult newSr = new Searchresult(0.0, 0.0, studentNum);
+                // resultMap.put(location, newSr);
             }
         }
-        return result;
+
+        return resultMap;
     }
 }
