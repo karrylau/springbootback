@@ -25,7 +25,8 @@ public class MapController
     }
 
     @PostMapping("/block")
-        public Map<String,blocknum> getBlockNum(@RequestBody Integer year) {
+    public Map<String, blocknum> getBlockNum(@RequestBody Map<String, Integer> request) {
+        Integer year = request.get("year");
         return schoolService.getblocknum(year);
     }
 }
