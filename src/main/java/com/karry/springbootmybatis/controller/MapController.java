@@ -2,10 +2,7 @@ package com.karry.springbootmybatis.controller;
 import com.karry.springbootmybatis.service.MapService;
 import com.karry.springbootmybatis.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -25,5 +22,10 @@ public class MapController
     @PostMapping("/mapdata")  //地图数据传输
     public map getMapData(){
         return schoolService.getMapData();
+    }
+
+    @PostMapping("/block")
+        public Map<String,blocknum> getBlockNum(@RequestBody Integer year) {
+        return schoolService.getblocknum(year);
     }
 }

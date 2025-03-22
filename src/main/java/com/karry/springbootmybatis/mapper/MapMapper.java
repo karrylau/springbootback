@@ -1,5 +1,6 @@
 package com.karry.springbootmybatis.mapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import java.util.List;
 import java.util.Map;
@@ -17,4 +18,13 @@ public interface MapMapper {
 
     @Select("SELECT location,fixedassets FROM \"material resources\" WHERE year='2021' AND stage='小学' ORDER BY location ASC")
     List<Map<String, Object>> getFixed();
+
+    @Select("SELECT location,stage,gdp,\"CulCost\",\"EduCost\",\"PubCost\" FROM \"financial_res\" WHERE year=#{year} ORDER BY location ASC")
+    List<Map<String, Object>> getBlocknum1(@Param("year")Integer year);
+
+    @Select("SELECT location,stage,\"Tnum\",\"Snum\",\"STratio\" FROM \"human_res\" WHERE year=#{year} ORDER BY location ASC")
+    List<Map<String, Object>> getBlocknum2(@Param("year")Integer year);
+
+    @Select("SELECT location,\"primary\",middle,senior FROM \"SchoolNum\" WHERE year=#{year} ORDER BY location ASC")
+    List<Map<String, Object>> getBlocknum3(@Param("year")Integer year);
 }
