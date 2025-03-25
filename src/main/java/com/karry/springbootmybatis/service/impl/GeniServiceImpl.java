@@ -75,57 +75,85 @@ public class GeniServiceImpl implements GeniService {
 
 
     @Override
-    public geniCalResult GeniCalculate(Genicalculate genicalculate) {     //根据前端数据计算基尼系数
+    public geniCalResult GeniCalculate(Genicalculate genicalculate) {
         geniCalResult result = new geniCalResult();
         Genipara para1 = genicalculate.getShiye();
         Genipara para2 = genicalculate.getGongyong();
+
         try {
-            //for (int year = genicalculate.getStartyear(); year <= genicalculate.getEndyear(); year++) {
-                //yearsList.add(year);                  //计算多年基尼系数所需循环
-            //yearsList.add(genicalculate.getStartyear());//只计算一年的基尼系数
-                int allpeople1 = para1.getPsum();
-                double allmoney1 = para1.getMsum();
-                Integer[] snum1 = para1.getPnum();
-                Double[] cost1 = para1.getMnum();
-                double geni1 = 0;
-                double pi1 = 0;
-                double wi1 = 0;
-                double qi1 = 0;
-                System.out.println(snum1.length);
-                for (int i = 0; i < snum1.length/2; i++) {
-                    pi1 = ((double) snum1[i] / allpeople1);
-                    wi1 = ((double) cost1[i]/ allmoney1);
-                    qi1 += wi1;
-                    double gi1 = pi1 * (2 * qi1 - wi1);
-                    geni1 += gi1;
-                    //System.out.println("pi: " + pi + " wi: " + wi+ " qi: " + qi + " gi: " + gi+ " geni: " + geni);
-                }//计算基尼系数
-            result.setShiye(1 - geni1);
+            // 计算第一个基尼系数(shiye)
+            if (para1 != null) {
+                result.setShiye(calculateGini(para1));
+            }
 
-            int allpeople2 = para2.getPsum();
-            double allmoney2 = para2.getMsum();
-            Integer[] snum2 = para2.getPnum();
-            Double[] cost2 = para2.getMnum();
-            double geni2 = 0;
-            double pi2 = 0;
-            double wi2 = 0;
-            double qi2 = 0;
-            for (int i = 0; i < snum2.length/2; i++) {
-                pi2 = ((double) snum2[i] / allpeople2);
-                wi2 = ((double) cost2[i]/ allmoney2);
-                qi2 += wi2;
-                double gi2 = pi2 * (2 * qi2 - wi2);
-                geni2 += gi2;
-                System.out.println(i);
-                //System.out.println("pi: " + pi + " wi: " + wi+ " qi: " + qi + " gi: " + gi+ " geni: " + geni);
-            }//计算基尼系数
+            // 计算第二个基尼系数(gongyong)
+            if (para2 != null) {
+                result.setGongyong(calculateGini(para2));
+            }
 
-            result.setGongyong(1 - geni2);
             System.out.println(result);
             return result;
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return new geniCalResult();
+        }
+    }
+
+    private double calculateGini(Genipara para) {
+        if (para == null || para.getPnum() == null || para.getMnum() == null) {
+            return 0.0;
+        }
+
+        Integer[] snum = para.getPnum();
+        Double[] cost = para.getMnum();
+        int allpeople = para.getPsum();
+        double allmoney = para.getMsum();
+
+        // 验证数据
+        if (snum.length != cost.length || allpeople <= 0 || allmoney <= 0.0) {
+            return 0.0;
+        }
+
+        // 将数据按收入/支出从小到大排序
+        List<IncomeGroup> groups = new ArrayList<>();
+        for (int i = 0; i < snum.length; i++) {
+            if (snum[i] != null && cost[i] != null) {
+                groups.add(new IncomeGroup(snum[i], cost[i]));
+            }
+        }
+
+        // 按人均收入排序
+        Collections.sort(groups, Comparator.comparingDouble(g -> g.costPerCapita()));
+
+        // 计算基尼系数
+        double geni = 0.0;
+        double cumulativeProp = 0.0; // 累计人口比例
+        double cumulativeIncomeProp = 0.0; // 累计收入比例
+
+        for (IncomeGroup group : groups) {
+            double prop = (double) group.people / allpeople;
+            double incomeProp = group.income / allmoney;
+
+            geni += prop * (2 * cumulativeIncomeProp + incomeProp);
+            cumulativeProp += prop;
+            cumulativeIncomeProp += incomeProp;
+        }
+
+        return 1 - geni;
+    }
+
+    // 辅助类，用于排序和计算
+    private static class IncomeGroup {
+        int people;
+        double income;
+
+        IncomeGroup(int people, double income) {
+            this.people = people;
+            this.income = income;
+        }
+
+        double costPerCapita() {
+            return people == 0 ? 0 : income / people;
         }
     }
 

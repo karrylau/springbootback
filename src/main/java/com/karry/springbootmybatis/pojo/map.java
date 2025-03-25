@@ -1,8 +1,5 @@
 package com.karry.springbootmybatis.pojo;
-
-
 import lombok.Data;
-
 import java.util.List;
 
 @Data

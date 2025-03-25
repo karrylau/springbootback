@@ -7,6 +7,6 @@ import org.springframework.stereotype.Component;
 public class Genicalculate {
     //private Integer startyear;
     //private Integer endyear;  //目前只计算一年的基尼系数
-    private Genipara shiye;
-    private Genipara gongyong;
+    private Genipara shiye;  //把数据打包好的事业费
+    private Genipara gongyong;//把数据打包好的公用费
 }

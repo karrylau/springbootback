@@ -44,7 +44,6 @@ public class MapServiceImpl implements MapService {
             t.setLatitude((Double)data.get("latitude"));
             t.setWeight((Double)data.get("weight"));
             t.setName((String)data.get("location"));
-
             SchoolData.add(t);
         }
 
@@ -160,7 +159,7 @@ public class MapServiceImpl implements MapService {
             if(locationS.equals("总计")){
                 continue;
             }
-            if(resultMap.get(locationS).getPrimary() == null){
+            if(resultMap.get(locationS).getMiddle() == null){
                 System.out.print(locationS);
             }
             resultMap.get(locationS).getPrimary().setSchool((Integer)dataS.get("primary"));
