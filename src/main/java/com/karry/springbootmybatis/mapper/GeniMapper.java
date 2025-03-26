@@ -17,4 +17,10 @@ public interface GeniMapper {
 
     @Select("SELECT * FROM \"financial_res\" WHERE year = #{year} AND stage = #{stage} AND location = #{location}")
     List<Map<String, Object>> getlocationGeni(@Param("year") Integer year, @Param("stage") String stage, @Param("location") String location);
+
+    @Select("SELECT * FROM \"financial_res\" WHERE year = #{year} ORDER BY location ASC")
+    List<Map<String, Object>> searchmoney(@Param("year") Integer year);
+
+    @Select("SELECT * FROM \"human_res\" WHERE year = #{year} ORDER BY location ASC")
+    List<Map<String, Object>> searchnum(@Param("year") Integer year);
 }

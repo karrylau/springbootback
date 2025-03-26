@@ -1,13 +1,12 @@
 package com.karry.springbootmybatis.service.impl;
 import com.karry.springbootmybatis.mapper.MapMapper;
-import com.karry.springbootmybatis.pojo.SchoolFeature;
-import com.karry.springbootmybatis.pojo.feature;
-import com.karry.springbootmybatis.pojo.map;
+import com.karry.springbootmybatis.pojo.*;
 import com.karry.springbootmybatis.service.MapService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -59,15 +58,22 @@ public class MapServiceImpl implements MapService {
             feature t = new feature();//分别获取两库数据
             feature k = new feature();
             feature p = new feature();
+
+            //weight赋值
             t.setWeight(Double.valueOf((Integer) teachernum.get(i).get("Tnum")));
             k.setWeight(Double.valueOf((Integer) teachernum.get(i).get("Snum")));
             p.setWeight((Double) fixed.get(i).get("fixedassets"));
+
+
+            //坐标赋值
             t.setLongitude((Double)coordinate.get(i).get("longitude"));
             t.setLatitude((Double) coordinate.get(i).get("latitude"));
             t.setName((String) coordinate.get(i).get("location"));
+
             k.setLongitude((Double)coordinate.get(i).get("longitude"));
             k.setLatitude((Double) coordinate.get(i).get("latitude"));
             k.setName((String) coordinate.get(i).get("location"));
+
             p.setLongitude((Double)coordinate.get(i).get("longitude"));
             p.setLatitude((Double) coordinate.get(i).get("latitude"));
             p.setName((String) coordinate.get(i).get("location"));
@@ -84,6 +90,85 @@ public class MapServiceImpl implements MapService {
         result.setStudentnum(StudentData);
         result.setFixedassets(FixedAssets);
         return result;
+    }
+
+    @Override
+    public Map<String, blocknum> getblocknum(Integer year) {
+        List<Map<String, Object>> getF = schoolMapper.getBlocknum1(year);
+        List<Map<String, Object>> getH = schoolMapper.getBlocknum2(year);
+        List<Map<String, Object>> getS = schoolMapper.getBlocknum3(year);
+
+        Map<String, blocknum> resultMap = new LinkedHashMap<>();
+        for(Map<String,Object> dataF : getF) {
+            block tf = new block();
+            blocknum s = new blocknum();
+            String locationF = (String) dataF.get("location");
+            tf.setCulcost((Double) dataF.get("CulCost"));
+            tf.setEducost((Double) dataF.get("EduCost"));
+            tf.setPubcost((Double) dataF.get("PubCost"));
+            tf.setGdp((Double)dataF.get("gdp"));
+
+            if (!resultMap.containsKey(locationF)) {
+                if (dataF.get("stage").equals("小学")) {
+                    s.setPrimary(tf);
+                }
+                if (dataF.get("stage").equals("初中")) {
+                    s.setMiddle(tf);
+                }
+                if (dataF.get("stage").equals("高中")) {
+                    s.setSenior(tf);
+                }
+                resultMap.put(locationF, s);
+            } else {
+                if (dataF.get("stage").equals("小学")) {
+                    resultMap.get(locationF).setPrimary(tf);
+                }
+                if (dataF.get("stage").equals("初中")) {
+                    resultMap.get(locationF).setMiddle(tf);
+                }
+                if (dataF.get("stage").equals("高中")) {
+                    resultMap.get(locationF).setSenior(tf);
+                }
+            }
+        }
+
+
+
+        for(Map<String,Object> dataH : getH){
+            String locationH = (String)dataH.get("location");
+
+            if(dataH.get("stage").equals("小学")){
+                resultMap.get(locationH).getPrimary().setTnum((Integer)dataH.get("Tnum"));
+                resultMap.get(locationH).getPrimary().setSnum((Integer)dataH.get("Snum"));
+                resultMap.get(locationH).getPrimary().setStratio((Double)dataH.get("STratio"));
+            }
+            if(dataH.get("stage").equals("初中")){
+                resultMap.get(locationH).getMiddle().setTnum((Integer)dataH.get("Tnum"));
+                resultMap.get(locationH).getMiddle().setSnum((Integer)dataH.get("Snum"));
+                resultMap.get(locationH).getMiddle().setStratio((Double)dataH.get("STratio"));
+            }
+            if(dataH.get("stage").equals("高中")){
+                resultMap.get(locationH).getSenior().setTnum((Integer)dataH.get("Tnum"));
+                resultMap.get(locationH).getSenior().setSnum((Integer)dataH.get("Snum"));
+                resultMap.get(locationH).getSenior().setStratio((Double)dataH.get("STratio"));
+            }
+        }
+
+        System.out.println(resultMap);
+        for(Map<String,Object> dataS : getS){
+            String locationS = (String)dataS.get("location");
+            if(locationS.equals("总计")){
+                continue;
+            }
+            if(resultMap.get(locationS).getPrimary() == null){
+                System.out.print(locationS);
+            }
+            resultMap.get(locationS).getPrimary().setSchool((Integer)dataS.get("primary"));
+            resultMap.get(locationS).getMiddle().setSchool((Integer)dataS.get("middle"));
+            resultMap.get(locationS).getSenior().setSchool((Integer)dataS.get("senior"));
+        }
+        System.out.println(resultMap);
+        return resultMap;
     }
 }
 

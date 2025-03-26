@@ -13,7 +13,7 @@ import com.karry.springbootmybatis.service.UserService;
 @RestController
 @RequestMapping("/api/findUserById")
 public class UserController {
-//这个没啥用了，被admin取代了，具体功能实现见admin
+
     @Autowired
     private UserService UserService;
 

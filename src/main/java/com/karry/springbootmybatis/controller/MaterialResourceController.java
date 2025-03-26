@@ -26,11 +26,11 @@ public class MaterialResourceController {
     public Map<String, List<Object>> getStructuredMaterialResources() {
         return materialResourceService.getStructuredMaterialResources();
     }
-    @GetMapping("/fixeddata")
+    @GetMapping("/fixeddata")  //固有资产图表连接
     public fixeddong getFixedData() {
         return materialResourceService.getFixedData();
     }
-    @GetMapping("/schooldata")
+    @GetMapping("/schooldata")  //学校数图表连接
     public numdong getSchoolData(){
         return materialResourceService.getSchoolData();
     }

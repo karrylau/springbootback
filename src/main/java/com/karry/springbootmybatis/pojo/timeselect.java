@@ -9,8 +9,8 @@ public class timeselect {
     private String region;
     private Integer startYear;
     private Integer endYear;
-    private String partition;
-    private String province;
+//    private String partition;
+//    private String province;
 
     public timeselect() {
     }

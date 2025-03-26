@@ -6,9 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.karry.springbootmybatis.mapper.GeniMapper;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class GeniServiceImpl implements GeniService {
@@ -46,14 +44,14 @@ public class GeniServiceImpl implements GeniService {
 
                 for (int i = 0; i < GeniData1.size(); i++) {      //分别获取两库数据
                     allpeople += (Integer) GeniData2.get(i).get("Snum");
-                    allmoney += (Double) GeniData1.get(i).get("EduCost");   //暂时以EduCost为例，后续换成占位符，接收数据加入费用类型即可
+                    allmoney += (Double) GeniData1.get(i).get(geniselect.getMoneyselect());   //暂时以EduCost为例，后续换成占位符，接收数据加入费用类型即可
                 }//计算总人数，总资金
                 //System.out.println("allpeople: " + allpeople + " allmoney: " + allmoney);
 
                 for (int i = 0; i < GeniData1.size(); i++) {      //逐步计算基尼系数
                     Integer snum = (Integer) GeniData2.get(i).get("Snum");
                     pi = ((double) snum / allpeople);
-                    wi = ((Double) GeniData1.get(i).get("EduCost") / allmoney);
+                    wi = ((double) GeniData1.get(i).get(geniselect.getMoneyselect()) / allmoney);
                     qi += wi;
                     double gi = pi * (2 * qi - wi);
                     geni += gi;
@@ -93,7 +91,8 @@ public class GeniServiceImpl implements GeniService {
                 double pi1 = 0;
                 double wi1 = 0;
                 double qi1 = 0;
-                for (int i = 0; i < snum1.length; i++) {
+                System.out.println(snum1.length);
+                for (int i = 0; i < snum1.length/2; i++) {
                     pi1 = ((double) snum1[i] / allpeople1);
                     wi1 = ((double) cost1[i]/ allmoney1);
                     qi1 += wi1;
@@ -111,20 +110,87 @@ public class GeniServiceImpl implements GeniService {
             double pi2 = 0;
             double wi2 = 0;
             double qi2 = 0;
-            for (int i = 0; i < snum2.length; i++) {
+            for (int i = 0; i < snum2.length/2; i++) {
                 pi2 = ((double) snum2[i] / allpeople2);
                 wi2 = ((double) cost2[i]/ allmoney2);
                 qi2 += wi2;
                 double gi2 = pi2 * (2 * qi2 - wi2);
                 geni2 += gi2;
+                System.out.println(i);
                 //System.out.println("pi: " + pi + " wi: " + wi+ " qi: " + qi + " gi: " + gi+ " geni: " + geni);
             }//计算基尼系数
 
             result.setGongyong(1 - geni2);
+            System.out.println(result);
             return result;
         }catch (Exception e) {
             e.printStackTrace();
             return new geniCalResult();
         }
+    }
+
+
+
+    @Override
+    public Map<String, Searchresult> SearchGeni(Integer year) {
+        // 1. 从数据库获取原始数据
+        List<Map<String, Object>> GeniData1 = GeniMapper.searchmoney(year);
+        List<Map<String, Object>> GeniData2 = GeniMapper.searchnum(year);
+
+        // 2. 使用 LinkedHashMap 保持插入顺序
+        Map<String, Searchresult> resultMap = new LinkedHashMap<>();
+
+        // 3. 处理 GeniData1：计算每个地区的累计费用
+        Map<String, Double[]> locationTotals = new HashMap<>();
+        for (Map<String, Object> data : GeniData1) {
+            String location = (String) data.get("location");
+            Double culCost = (Double) data.get("CulCost");
+            Double pubCost = (Double) data.get("PubCost");
+
+            locationTotals.putIfAbsent(location, new Double[]{0.0, 0.0});
+            Double[] totals = locationTotals.get(location);
+            totals[0] += culCost;  // 累计 CulCost
+            totals[1] += pubCost;  // 累计 PubCost
+        }
+
+        // 4. 将累计数据转换为 Searchresult 对象，并按地区名排序
+        List<Map<String, Object>> sortedData = new ArrayList<>();
+        for (Map.Entry<String, Double[]> entry : locationTotals.entrySet()) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("location", entry.getKey());
+            map.put("CulCost", entry.getValue()[0]);
+            map.put("PubCost", entry.getValue()[1]);
+            sortedData.add(map);
+        }
+
+        // 按地区名排序
+        sortedData.sort(Comparator.comparing(map -> (String) map.get("location")));
+
+        // 5. 填充 resultMap
+        for (Map<String, Object> data : sortedData) {
+            String location = (String) data.get("location");
+            Searchresult sr = new Searchresult();
+            sr.setCulcost((Double) data.get("CulCost"));
+            sr.setPubcost((Double) data.get("PubCost"));
+            sr.setStu(0);  // 初始学生数为0
+            resultMap.put(location, sr);
+        }
+
+        // 6. 处理 GeniData2：更新学生数量
+        for (Map<String, Object> data : GeniData2) {
+            String location = (String) data.get("location");
+            Integer studentNum = (Integer) data.get("Snum");
+
+            if (resultMap.containsKey(location)) {
+                Searchresult sr = resultMap.get(location);
+                sr.setStu(sr.getStu() + studentNum);  // 累加学生数
+            } else {
+                // 可选：处理未匹配的地区（根据业务需求）
+                // Searchresult newSr = new Searchresult(0.0, 0.0, studentNum);
+                // resultMap.put(location, newSr);
+            }
+        }
+
+        return resultMap;
     }
 }

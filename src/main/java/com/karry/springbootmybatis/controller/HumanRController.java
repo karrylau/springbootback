@@ -26,7 +26,7 @@ public class HumanRController {
 
 //    @GetMapping("/getAllH")
 //    public humanRes getAllH() {
-////        System.out.println("1");
+//        System.out.println("1");
 //        return humanRService.getAll();
 //    }
     @PostMapping("/filter")      //按年份，学段，地区筛选
@@ -34,12 +34,12 @@ public class HumanRController {
         return humanRService.getFilteredData(year, stage, location);
     }
 
-    @GetMapping("/snumdata")
+    @GetMapping("/snumdata")  //学生人数图表连接
     public numdong getsnum(){
         return humanRService.getSnum();
     }
 
-    @GetMapping("/teacherdata")
+    @GetMapping("/teacherdata")  //教师人数图表连接
     public numdong gettnum(){
         return humanRService.getTnum();
     }
