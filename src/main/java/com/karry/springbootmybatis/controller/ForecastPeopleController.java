@@ -1,6 +1,6 @@
 package com.karry.springbootmybatis.controller;
 
-import com.karry.springbootmybatis.service.ForecastPeopleService;
+import com.karry.springbootmybatis.service.impl.ForecastPeopleService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -59,9 +59,12 @@ public class ForecastPeopleController {
 
     /**
      * 初中在籍人数接口
-     * @param targetYear 目标年份
-     * @param location 目标地区
-     * @return 初中在籍人数
+     * 该接口用于获取特定年份和地区的初中在籍人数
+     * 主要作用是通过HTTP GET请求提供一个简单的接口，用于获取统计信息
+     *
+     * @param targetYear 目标年份，指定需要查询的年份
+     * @param location 目标地区，指定需要查询的地区
+     * @return 初中在籍人数，返回计算得到的初中在籍人数
      */
     @GetMapping("/forecast/juniorInSchool")
     public int juniorInSchool(@RequestParam int targetYear, @RequestParam String location) {
@@ -70,9 +73,13 @@ public class ForecastPeopleController {
 
     /**
      * 高中在籍人数接口
-     * @param targetYear 目标年份
-     * @param location 目标地区
-     * @return 高中在籍人数
+     * 该接口用于获取特定年份和地区内的高中在籍学生人数
+     * 主要作用是通过目标年份和目标地区参数，从服务层获取高中在籍人数数据
+     * 适用于教育统计、教育资源分配等场景
+     *
+     * @param targetYear 目标年份，用于指定需要查询的年份
+     * @param location 目标地区，用于指定需要查询的地区
+     * @return 高中在籍人数，返回指定年份和地区的高中在籍学生人数
      */
     @GetMapping("/forecast/seniorInSchool")
     public int seniorInSchool(@RequestParam int targetYear, @RequestParam String location) {
