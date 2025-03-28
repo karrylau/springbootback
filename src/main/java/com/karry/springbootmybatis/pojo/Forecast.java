@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class Forecast {
-    Integer year;
+    Integer targetYear;
     String location;
-    String stage;
+    //String stage;
 }

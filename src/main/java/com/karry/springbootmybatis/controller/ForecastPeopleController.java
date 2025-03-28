@@ -17,58 +17,58 @@ public class ForecastPeopleController {
     }
 
 
-    @GetMapping("/forecast/primaryEnrollment")
+    @PostMapping("/forecast/primaryEnrollment")
     public int primaryEnrollment(@RequestBody Forecast param) {
-        int targetYear =param.getYear();
+        int targetYear =param.getTargetYear();
         String location = param.getLocation();
         return service.calculatePrimaryEnrollment(targetYear, location);
     }
 
 
-    @GetMapping("/forecast/juniorEnrollment")
+    @PostMapping("/forecast/juniorEnrollment")
     public int juniorEnrollment(@RequestBody Forecast param) {
-        int targetYear =param.getYear();
+        int targetYear =param.getTargetYear();
         String location = param.getLocation();
         return service.calculateJuniorEnrollment(targetYear, location);
     }
 
 
-    @GetMapping("/forecast/seniorEnrollment")
+    @PostMapping("/forecast/seniorEnrollment")
     public int seniorEnrollment(@RequestBody Forecast param) {
-        int targetYear =param.getYear();
+        int targetYear =param.getTargetYear();
         String location = param.getLocation();
         return service.calculateSeniorEnrollment(targetYear, location);
     }
 
 
-    @GetMapping("/forecast/primaryInSchool")
+    @PostMapping("/forecast/primaryInSchool")
     public int primaryInSchool(@RequestBody Forecast param) {
-        int targetYear =param.getYear();
+        int targetYear =param.getTargetYear();
         String location = param.getLocation();
         return service.calculatePrimaryInSchool(targetYear, location);
     }
 
 
-    @GetMapping("/forecast/juniorInSchool")
+    @PostMapping("/forecast/juniorInSchool")
     public int juniorInSchool(@RequestBody Forecast param) {
-        int targetYear =param.getYear();
+        int targetYear =param.getTargetYear();
         String location = param.getLocation();
         return service.calculateJuniorInSchool(targetYear, location);
     }
 
 
-    @GetMapping("/forecast/seniorInSchool")
+    @PostMapping("/forecast/seniorInSchool")
     public int seniorInSchool(@RequestBody Forecast param) {
-        int targetYear =param.getYear();
+        int targetYear =param.getTargetYear();
         String location = param.getLocation();
         return service.calculateSeniorInSchool(targetYear, location);
     }
     // 师生比接口
-    @GetMapping("/forecast/shishengbi")
+    @PostMapping("/forecast/shishengbi")
     public Map<Integer, Double> getTeacherStudentRatio(@RequestBody Forecast param) {
-        int targetYear =param.getYear();
+        int targetYear =param.getTargetYear();
         String location = param.getLocation();
-        String stage = param.getStage();
+        String stage = "param.getStage()";
         return service.calculateTeacherStudentRatio(targetYear, location, stage);
     }
 }
