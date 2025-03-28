@@ -4,14 +4,17 @@ import com.karry.springbootmybatis.mapper.ForecastPeopleMapper;
 import com.karry.springbootmybatis.pojo.EducationPopulation;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
 public class ForecastPeopleService {
     private final ForecastPeopleMapper mapper;
-    private static final int MIN_YEAR = 2010;  // 数据库最早记录年份
-    private static final int MAX_BACK_YEAR = 10;  // 最大回溯年数
+    private static final int MIN_YEAR = 2010;
+    private static final int MAX_BACK_YEAR = 10;
+    private static final int PREDICT_YEARS = 5; // 预测未来5年
 
     public ForecastPeopleService(ForecastPeopleMapper mapper) {
         this.mapper = mapper;
@@ -32,7 +35,7 @@ public class ForecastPeopleService {
 
     // 获取指定地区和年份范围的数据
     private List<EducationPopulation> getRangeData(int startYear, int endYear, String location) {
-        return mapper.findByYearBetweenAndLocationOrderByYearAsc(startYear, endYear, location);
+        return mapper.findByLocationAndYearRange(location, startYear, endYear);
     }
 
     // 计算小学入学人数
@@ -97,5 +100,52 @@ public class ForecastPeopleService {
             }
         }
         return Optional.empty();
+    }
+
+    // 计算师生比（核心方法）
+    public Map<Integer, Double> calculateTeacherStudentRatio(int targetYear, String location, String stage) {
+        Map<Integer, Double> result = new HashMap<>();
+
+        // 验证输入参数
+        if (targetYear < MIN_YEAR) {
+            throw new IllegalArgumentException("目标年份不能早于" + MIN_YEAR);
+        }
+        if (!stage.matches("primary|junior|senior")) {
+            throw new IllegalArgumentException("学段必须为primary/junior/senior");
+        }
+
+        for (int i = 0; i < PREDICT_YEARS; i++) {
+            int currentYear = targetYear + i;
+            int studentCount = getStudentCount(currentYear, location, stage);
+            int teacherCount = studentCount / 10; // 教师数为学生数的10%
+
+            if (teacherCount == 0) {
+                result.put(currentYear, 0.0);
+                continue;
+            }
+
+            double ratio = (double) studentCount / teacherCount;
+            result.put(currentYear, Math.round(ratio * 100.0) / 100.0); // 保留两位小数
+        }
+
+        return result;
+    }
+
+    // 获取指定年份和学段的学生人数
+    private int getStudentCount(int year, String location, String stage) {
+        int startYear = year - 1;
+        int endYear = year;
+
+        List<EducationPopulation> dataList = mapper.findByLocationAndYearRange(location, startYear, endYear);
+        if (dataList.isEmpty()) {
+            return 0;
+        }
+
+        return switch (stage) {
+            case "primary" -> dataList.get(0).getPrimaryInSchool();
+            case "junior" -> dataList.get(0).getJuniorInSchool();
+            case "senior" -> dataList.get(0).getSeniorInSchool();
+            default -> throw new IllegalArgumentException("Invalid stage: " + stage);
+        };
     }
 }

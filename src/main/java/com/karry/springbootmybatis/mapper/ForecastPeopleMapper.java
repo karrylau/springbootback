@@ -24,12 +24,12 @@ public interface ForecastPeopleMapper {
 
     // 查询指定地区和年份范围的数据
     @Select("SELECT * FROM forcastpeople " +
-            "WHERE year BETWEEN #{startYear} AND #{endYear} " +
-            "AND location = #{location} " +
+            "WHERE location = #{location} " +
+            "AND year BETWEEN #{startYear} AND #{endYear} " +
             "ORDER BY year ASC")
-    List<EducationPopulation> findByYearBetweenAndLocationOrderByYearAsc(
+    List<EducationPopulation> findByLocationAndYearRange(
+            @Param("location") String location,
             @Param("startYear") int startYear,
-            @Param("endYear") int endYear,
-            @Param("location") String location
+            @Param("endYear") int endYear
     );
 }
