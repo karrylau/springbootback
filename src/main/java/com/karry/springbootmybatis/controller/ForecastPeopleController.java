@@ -2,8 +2,11 @@ package com.karry.springbootmybatis.controller;
 
 import com.karry.springbootmybatis.service.impl.ForecastPeopleService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
 
 @RestController
 public class ForecastPeopleController {
@@ -19,8 +22,8 @@ public class ForecastPeopleController {
      * @param location 目标地区
      * @return 小学入学人数
      */
-    @GetMapping("/forecast/primaryEnrollment")
-    public int primaryEnrollment(@RequestParam int targetYear, @RequestParam String location) {
+    @GetMapping("/api/forecast/primaryEnrollment")
+    public int primaryEnrollment(@RequestBody int targetYear, @RequestBody String location) {
         return service.calculatePrimaryEnrollment(targetYear, location);
     }
 
@@ -81,8 +84,17 @@ public class ForecastPeopleController {
      * @param location 目标地区，用于指定需要查询的地区
      * @return 高中在籍人数，返回指定年份和地区的高中在籍学生人数
      */
-    @GetMapping("/forecast/seniorInSchool")
+    @GetMapping("/api/forecast/seniorInSchool")
     public int seniorInSchool(@RequestParam int targetYear, @RequestParam String location) {
         return service.calculateSeniorInSchool(targetYear, location);
+    }
+    // 师生比接口
+    @GetMapping("/forecast/shishengbi")
+    public Map<Integer, Double> getTeacherStudentRatio(
+            @RequestParam int targetYear,
+            @RequestParam String location,
+            @RequestParam String stage
+    ) {
+        return service.calculateTeacherStudentRatio(targetYear, location, stage);
     }
 }
