@@ -80,9 +80,9 @@ public class MaterialResourceServicelmpl implements MaterialResourceService{
         result.setPrimary(primaryData); // 假设 setPrimary 接受 List<Double>，这需要你在 fixeddong 类中进行相应的修改
         result.setMiddle(middleData);
         result.setHigh(highdata);
-        System.out.println("pd"+result.getPrimary());
-        System.out.println("md"+result.getMiddle());
-        System.out.println("hd"+result.getHigh());
+        //System.out.println("pd"+result.getPrimary());
+        //System.out.println("md"+result.getMiddle());
+        //System.out.println("hd"+result.getHigh());
         return result;
     }
 
@@ -103,9 +103,9 @@ public class MaterialResourceServicelmpl implements MaterialResourceService{
         result.setPrimary(primaryData); // 假设 setPrimary 接受 List<Double>，这需要你在 fixeddong 类中进行相应的修改
         result.setMiddle(middleData);
         result.setHigh(highdata);
-        System.out.println("pd"+result.getPrimary());
-        System.out.println("md"+result.getMiddle());
-        System.out.println("hd"+result.getHigh());
+        //System.out.println("pd"+result.getPrimary());
+        //System.out.println("md"+result.getMiddle());
+        //System.out.println("hd"+result.getHigh());
         return result;
     }
 

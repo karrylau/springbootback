@@ -153,20 +153,21 @@ public class MapServiceImpl implements MapService {
             }
         }
 
-        System.out.println(resultMap);
+        //System.out.println(resultMap);
         for(Map<String,Object> dataS : getS){
             String locationS = (String)dataS.get("location");
             if(locationS.equals("总计")){
                 continue;
             }
-            if(resultMap.get(locationS).getMiddle() == null){
+            if(resultMap.get(locationS).getPrimary() == null){
                 System.out.print(locationS);
+                System.out.print(resultMap.get(locationS));
             }
             resultMap.get(locationS).getPrimary().setSchool((Integer)dataS.get("primary"));
             resultMap.get(locationS).getMiddle().setSchool((Integer)dataS.get("middle"));
             resultMap.get(locationS).getSenior().setSchool((Integer)dataS.get("senior"));
         }
-        System.out.println(resultMap);
+        //System.out.println(resultMap);
         return resultMap;
     }
 }

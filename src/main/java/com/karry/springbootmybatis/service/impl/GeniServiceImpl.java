@@ -91,7 +91,7 @@ public class GeniServiceImpl implements GeniService {
                 result.setGongyong(calculateGini(para2));
             }
 
-            System.out.println(result);
+            //System.out.println(result);
             return result;
         } catch (Exception e) {
             e.printStackTrace();

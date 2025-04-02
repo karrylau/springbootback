@@ -62,17 +62,17 @@ public class TheilServiceImpl implements TheilService {
     public Map<String, Object> getFinancialDataWithProvinces(Integer year) {
         // 从数据库获取教育经费数据
         List<Map<String, Double>> financialResList = theilMapper.getAllFinancialData(year);//形成序列表 对应的是省份和数据,这个是有用的
-        System.out.println(financialResList);
+        //System.out.println(financialResList);
         //获取人力资源表中的学生数数据
         List<Map<String, Integer>> studentDataList = theilMapper.getStudentData(year);//没有用到学生数
-        System.out.println(studentDataList);
+        //System.out.println(studentDataList);
         // 创建一个 Map 用于存储省份与教育成本的映射
         Map<String, Double> financialDataMap = new HashMap<>();//province以及教育经费Educost
 
         // 将数据库中的每一项数据填充到 Map 中，其实这一步多此一举
         for (Map<String, Double>  financialRes : financialResList) {   //创建一个theil financialRes，把list里面的数据放进去
             financialDataMap.put(String.valueOf((financialRes.get("location"))), (financialRes.get("EduCost")));//再将数据放到新建的map,其实一开始将它们放进去就行
-        System.out.println(String.valueOf((financialRes.get("location")))+financialRes.get("EduCost"));
+       // System.out.println(String.valueOf((financialRes.get("location")))+financialRes.get("EduCost"));
         }
 
         // 创建一个 Map 用于存储省份与学生数的映射
@@ -185,12 +185,13 @@ public class TheilServiceImpl implements TheilService {
        Double theil=0.0;
        Double area=0.0;
        Double region=0.0;
-       double alleducost = 0; //所有学生费用
+       Double alleducost = 0.0; //所有学生费用
        int alledunum = 0;  //所有学生人数
        Integer year=2016;//后面可以根据year的值进行修改
-
-       //System.out.println(data.get("江苏省")); //data没问题，但是是乱序的,data代表的是
+       System.out.println(data);
+      // System.out.println(data.get("江苏省")); //data没问题，但是是乱序的,data代表的是
        List<Map<String,Integer>> stunum = theilMapper.getStudentData(year);//隐含了一个问题，第二次传值的时候没有年份，就会有很多问题，先暂定是这个人数
+      // System.out.println((stunum));
        Map<String, Integer> provinceStudentMap = new HashMap<>();  //每个省份的学生数
        Map<String, Double> regionEduCostMap = new HashMap<>(); //每个地区的教育经费综合
        Map<String, Integer> regionStudentMap = new HashMap<>();//每个地区的学生数总和
