@@ -33,7 +33,7 @@ public class MapServiceImpl implements MapService {
     }
 
     @Override
-    public map getMapData() {
+    public map getMapData(Integer year) {
 
         List<Map<String, Object>> schools = schoolMapper.getAllSchools();
         List<feature> SchoolData = new ArrayList<>();
@@ -48,8 +48,11 @@ public class MapServiceImpl implements MapService {
         }
 
         List<Map<String, Object>> coordinate = schoolMapper.getCoordinate();
-        List<Map<String, Object>> teachernum = schoolMapper.getNum();
-        List<Map<String, Object>> fixed = schoolMapper.getFixed();
+        List<Map<String, Object>> teachernum = schoolMapper.getNum(year);
+        List<Map<String, Object>> fixed = schoolMapper.getFixed(year);
+        System.out.println(coordinate);
+        System.out.println(teachernum);
+        System.out.println(fixed);
         List<feature> TeacherData = new ArrayList<>();
         List<feature> StudentData = new ArrayList<>();
         List<feature> FixedAssets = new ArrayList<>();
@@ -76,6 +79,7 @@ public class MapServiceImpl implements MapService {
             p.setLongitude((Double)coordinate.get(i).get("longitude"));
             p.setLatitude((Double) coordinate.get(i).get("latitude"));
             p.setName((String) coordinate.get(i).get("location"));
+
             //暂时以EduCost为例，后续换成占位符，接收数据加入费用类型即可
             TeacherData.add(t);
             StudentData.add(k);

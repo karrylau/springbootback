@@ -20,8 +20,9 @@ public class MapController
     }
 
     @PostMapping("/mapdata")  //地图数据传输
-    public map getMapData(){
-        return schoolService.getMapData();
+    public map getMapData(@RequestBody Map<String, Integer> request){
+        Integer year = request.get("myyear");
+        return schoolService.getMapData(year);
     }
 
     @PostMapping("/block")
