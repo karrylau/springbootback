@@ -81,18 +81,23 @@ public class HumanRServiceImpl implements HumanRService {
     }
 
     @Override
-    public homenum getHomenum() {//将有数据的呈现在主页面上
+        public homenum getHomenum(Integer year) {//将有数据的呈现在主页面上
         try {
-            List<Map<String, Object>> rawData = humanRMapper.getEduCost();//用于获取教育经费
-            List<Map<String, Object>> rawData2= humanRMapper.getNationalGDP();//用于获取GDP
-            List<Map<String, Object>> rawData3= humanRMapper.getCulCost();//用于获取文化经费
-            List<Map<String, Object>> areadata= humanRMapper.getArea();//用于获取面积
-            List<Map<String, Object>> rawData4= humanRMapper.getfixedassets();
+            List<Map<String, Object>> rawData = humanRMapper.getEduCost(year);//用于获取教育经费
+            List<Map<String, Object>> rawData2= humanRMapper.getNationalGDP(year);//用于获取GDP
+            List<Map<String, Object>> rawData3= humanRMapper.getCulCost(year);//用于获取文化经费
+            List<Map<String, Object>> areadata= humanRMapper.getArea(year);//用于获取面积
+            List<Map<String, Object>> rawData4= humanRMapper.getfixedassets(year);
+            System.out.println(rawData);
+            System.out.println(rawData2);
+            System.out.println(rawData3);
+            System.out.println(areadata);
+            System.out.println(rawData4);
             double totalEduCost = 0;
             double gdp = 0;
             double totalCulCost = 0;
             double area=0;
-            double fixedasserts = 0;
+            double fixedassets = 0;
             for (Map<String, Object> entry : rawData) {
                 totalEduCost += (Double) entry.get("EduCost");
             }//计算教育经费的总和
@@ -107,9 +112,9 @@ public class HumanRServiceImpl implements HumanRService {
             }//计算区域总和
 
             for (Map<String, Object> entry :rawData4) {
-                fixedasserts += (Double) entry.get("fixedassets");
+                fixedassets += (Double) entry.get("fixedassets");
             }//计算固有资产总和
-//            System.out.println("totalEduCost: " + fixedasserts);
+//System.out.println("基础设施: " + fixedasserts);
 
             gdp=(Double) rawData2.get(0).get("gdp");
 
@@ -128,7 +133,7 @@ public class HumanRServiceImpl implements HumanRService {
 
             result.setArea(area);
 
-            result.setFixedAssets(fixedasserts);
+            result.setFixedAssets(fixedassets);
 //            System.out.println("totalEduCost: " + result.getFixedAssets());
             return result;
         } catch (Exception e) {

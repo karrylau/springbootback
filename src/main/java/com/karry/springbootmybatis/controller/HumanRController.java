@@ -7,6 +7,8 @@ import com.karry.springbootmybatis.service.HumanRService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api")
 public class HumanRController {
@@ -19,9 +21,10 @@ public class HumanRController {
         return humanRService.getAll();
     }
 
-    @GetMapping("/home")
-    public homenum gethomenum() {
-        return humanRService.getHomenum();
+    @GetMapping("/home")    //地图两边的五个数字
+    public homenum gethomenum(@RequestParam("year") Integer year) {
+        System.out.println(year);
+        return humanRService.getHomenum(year);
     }
 
 //    @GetMapping("/getAllH")

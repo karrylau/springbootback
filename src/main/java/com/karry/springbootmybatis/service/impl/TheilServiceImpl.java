@@ -188,7 +188,7 @@ public class TheilServiceImpl implements TheilService {
        Double alleducost = 0.0; //所有学生费用
        int alledunum = 0;  //所有学生人数
        Integer year=2016;//后面可以根据year的值进行修改
-       System.out.println(data);
+       //System.out.println(data);
       // System.out.println(data.get("江苏省")); //data没问题，但是是乱序的,data代表的是
        List<Map<String,Integer>> stunum = theilMapper.getStudentData(year);//隐含了一个问题，第二次传值的时候没有年份，就会有很多问题，先暂定是这个人数
       // System.out.println((stunum));

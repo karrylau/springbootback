@@ -8,7 +8,7 @@ import com.karry.springbootmybatis.pojo.numdong;
 public interface HumanRService {
     humanRes getAll();
     humanRes getFilteredData(Integer year, String stage, String location);
-    homenum getHomenum();
+    homenum getHomenum(Integer year);
     numdong getSnum();
     numdong getTnum();
 }

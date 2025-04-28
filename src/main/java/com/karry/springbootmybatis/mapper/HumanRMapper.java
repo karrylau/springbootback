@@ -14,20 +14,20 @@ public interface HumanRMapper {
     @Select("SELECT * FROM \"human_res\" WHERE year = #{year} AND stage = #{stage} AND location = #{location}")
     List<Map<String, Object>> getFilteredData(@Param("year") Integer year, @Param("stage") String stage, @Param("location") String location);
 
-    @Select("SELECT \"EduCost\" FROM \"financial_res\" WHERE year = 2022")
-    List<Map<String, Object>> getEduCost();
+    @Select("SELECT \"EduCost\" FROM \"financial_res\" WHERE year = #{year}")
+    List<Map<String, Object>> getEduCost(@Param("year") Integer year);
 
-    @Select("SELECT \"gdp\" FROM \"financial_res\" WHERE location = '全国'")//这里要指出，这里的location是一个字符串，所以要用单引号括起来，全国是location
-    List<Map<String, Object>> getNationalGDP();
+    @Select("SELECT \"gdp\" FROM \"financial_res\" WHERE year = #{year} AND location = '全国'")//这里要指出，这里的location是一个字符串，所以要用单引号括起来，全国是location
+    List<Map<String, Object>> getNationalGDP(@Param("year") Integer year);
 
-    @Select("SELECT \"CulCost\" FROM \"financial_res\" WHERE year = 2022")//这里的year是一个数字，所以不需要单引号
-    List<Map<String, Object>> getCulCost();
+    @Select("SELECT \"CulCost\" FROM \"financial_res\" WHERE year = #{year}")//这里的year是一个数字，所以不需要单引号
+    List<Map<String, Object>> getCulCost(@Param("year") Integer year);
 
-    @Select("SELECT \"area\" FROM \"material resources\" WHERE year = 2020 AND location = '全国'")//这里的year是一个数字，所以不需要单引号
-    List<Map<String, Object>> getArea();
+    @Select("SELECT \"area\" FROM \"material resources\" WHERE year = #{year} AND location = '全国'")//这里的year是一个数字，所以不需要单引号
+    List<Map<String, Object>> getArea(@Param("year") Integer year);
 
-    @Select("SELECT \"fixedassets\" FROM \"material resources\" WHERE year = 2020 AND location = '全国'")
-    List<Map<String, Object>> getfixedassets();
+    @Select("SELECT \"fixedassets\" FROM \"material resources\" WHERE year = #{year} AND location = '全国'")
+    List<Map<String, Object>> getfixedassets(@Param("year") Integer year);
 
     @Select("SELECT \"Snum\" FROM \"human_res\" WHERE stage='小学' AND location='江苏省' AND year IN (2018, 2019, 2020, 2021, 2022) ORDER BY year ASC")
     List<Map<String, Object>> getPrimarySchoolSnum();

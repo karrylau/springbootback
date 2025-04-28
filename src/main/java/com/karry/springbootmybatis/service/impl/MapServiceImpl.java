@@ -50,9 +50,9 @@ public class MapServiceImpl implements MapService {
         List<Map<String, Object>> coordinate = schoolMapper.getCoordinate();
         List<Map<String, Object>> teachernum = schoolMapper.getNum(year);
         List<Map<String, Object>> fixed = schoolMapper.getFixed(year);
-        System.out.println(coordinate);
-        System.out.println(teachernum);
-        System.out.println(fixed);
+        //System.out.println(coordinate);
+        //System.out.println(teachernum);
+        //System.out.println(fixed);
         List<feature> TeacherData = new ArrayList<>();
         List<feature> StudentData = new ArrayList<>();
         List<feature> FixedAssets = new ArrayList<>();

@@ -21,7 +21,7 @@ public class MapController
 
     @PostMapping("/mapdata")  //地图数据传输
     public map getMapData(@RequestBody Map<String, Integer> request){
-        Integer year = request.get("myyear");
+        Integer year = request.get("year");
         return schoolService.getMapData(year);
     }
 
