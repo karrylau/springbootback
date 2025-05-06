@@ -5,6 +5,6 @@ import java.util.Map;
 @Data
 public class TheilRequest
 {
-        private Map<String, Integer> tuningData;
+        private Map<String, Double> tuningData;
         private String location;
 }

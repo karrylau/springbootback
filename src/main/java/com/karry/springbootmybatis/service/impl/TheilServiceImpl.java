@@ -108,7 +108,7 @@ public class TheilServiceImpl implements TheilService {
     }
     // 区域与省份的映射
     //计算的是区域间泰尔指数和区域内泰尔指数
-    public TheilResult getarea(Map<String,Integer> data, String location)  //那么问题来了，我的人数怎么去定呢？就用之前的人数。
+    public TheilResult getarea(Map<String,Double> data, String location)  //那么问题来了，我的人数怎么去定呢？就用之前的人数。
     {
         Double theil = 0.0;
         Double area = 0.0;
@@ -141,7 +141,7 @@ public class TheilServiceImpl implements TheilService {
 
         //获取总教育经费
         for (String province : data.keySet()) {
-            alleducost = data.get(province) + alleducost; //get(province)是一个具体数据
+            alleducost = (double)data.get(province) + alleducost; //get(province)是一个具体数据
         }
 
         //获取每个省份的学生数,并且算好每个区域的总值
