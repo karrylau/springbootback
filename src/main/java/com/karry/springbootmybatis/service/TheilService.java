@@ -7,5 +7,5 @@ import java.util.Map;
 
 public interface TheilService {
     Map<String, Object> getFinancialDataWithProvinces(Integer year);
-    TheilResult getarea (Map<String,Integer> data);
+    TheilResult getarea (Map<String,Integer> data, String location);  //具体通过getarea实现代码
 }

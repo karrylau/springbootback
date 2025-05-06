@@ -9,6 +9,7 @@ import com.karry.springbootmybatis.service.HumanRService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -88,11 +89,11 @@ public class HumanRServiceImpl implements HumanRService {
             List<Map<String, Object>> rawData3= humanRMapper.getCulCost(year);//用于获取文化经费
             List<Map<String, Object>> areadata= humanRMapper.getArea(year);//用于获取面积
             List<Map<String, Object>> rawData4= humanRMapper.getfixedassets(year);
-            System.out.println(rawData);
-            System.out.println(rawData2);
-            System.out.println(rawData3);
-            System.out.println(areadata);
-            System.out.println(rawData4);
+//            System.out.println(rawData);
+//            System.out.println(rawData2);
+//            System.out.println(rawData3);
+//            System.out.println(areadata);
+//            System.out.println(rawData4);
             double totalEduCost = 0;
             double gdp = 0;
             double totalCulCost = 0;
@@ -110,11 +111,12 @@ public class HumanRServiceImpl implements HumanRService {
             for (Map<String, Object> entry : areadata) {
                 area += (Double) entry.get("area");
             }//计算区域总和
+            //System.out.println("area: " + area);
 
             for (Map<String, Object> entry :rawData4) {
                 fixedassets += (Double) entry.get("fixedassets");
             }//计算固有资产总和
-//System.out.println("基础设施: " + fixedasserts);
+             //System.out.println("基础设施: " + fixedassets);
 
             gdp=(Double) rawData2.get(0).get("gdp");
 
@@ -133,7 +135,11 @@ public class HumanRServiceImpl implements HumanRService {
 
             result.setArea(area);
 
-            result.setFixedAssets(fixedassets);
+            DecimalFormat df = new DecimalFormat("#.00");
+            String formattedValue = df.format(fixedassets); // 例如 "325467552.08"
+            double roundedValue = Double.parseDouble(formattedValue);
+            result.setFixedAssets(roundedValue);
+
 //            System.out.println("totalEduCost: " + result.getFixedAssets());
             return result;
         } catch (Exception e) {

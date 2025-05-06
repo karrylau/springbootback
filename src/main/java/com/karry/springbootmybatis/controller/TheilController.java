@@ -22,9 +22,16 @@ public class TheilController {
     }
 
 
-   @PostMapping("/taierCount")
-   public TheilResult  getarea(@RequestBody Map<String,Integer> data)   //获取的是一整个data，对其进行操作
-   {
-       return theilService.getarea(data);
-   }
+//   @PostMapping("/taierCount")
+//   public TheilResult  getarea(@RequestBody Map<String,Integer> data)   //获取的是一整个data，对其进行操作
+//   {
+//       return theilService.getarea(data);
+//   }
+    @PostMapping("/taierCount")
+    public TheilResult getarea(@RequestBody TheilRequest request) {
+        System.out.println("原始请求内容：\n" + request);
+        System.out.println("Received tuningData: " + request.getTuningData());
+        System.out.println("Received location: " + request.getLocation());
+        return theilService.getarea(request.getTuningData(), request.getLocation());
+    }
 }
