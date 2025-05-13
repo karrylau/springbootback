@@ -48,7 +48,9 @@ public class MapServiceImpl implements MapService {
         }
 
         List<Map<String, Object>> coordinate = schoolMapper.getCoordinate();
+        System.out.println(coordinate);
         List<Map<String, Object>> teachernum = schoolMapper.getNum(year);
+        System.out.println(teachernum);
         List<Map<String, Object>> fixed = schoolMapper.getFixed(year);
         //System.out.println(coordinate);
         //System.out.println(teachernum);
@@ -132,8 +134,8 @@ public class MapServiceImpl implements MapService {
                 if (dataF.get("stage").equals("高中")) {
                     resultMap.get(locationF).setSenior(tf);
                 }
-            }
         }
+    }
 
 
 

@@ -55,6 +55,69 @@ public class TheilServiceImpl implements TheilService {
         REGION_MAP.put("香港", "港澳台地区");
         REGION_MAP.put("澳门", "港澳台地区");
         REGION_MAP.put("台湾省", "港澳台地区");
+
+        // 苏北地区
+        REGION_MAP.put("徐州市", "苏北地区");
+        REGION_MAP.put("连云港市", "苏北地区");
+        REGION_MAP.put("宿迁市", "苏北地区");
+        REGION_MAP.put("淮安市", "苏北地区");
+        REGION_MAP.put("盐城市", "苏北地区");
+        // 苏中地区
+        REGION_MAP.put("扬州市", "苏中地区");
+        REGION_MAP.put("泰州市", "苏中地区");
+        REGION_MAP.put("南通市", "苏中地区");
+        // 苏南地区
+        REGION_MAP.put("南京市", "苏南地区");
+        REGION_MAP.put("镇江市", "苏南地区");
+        REGION_MAP.put("苏州市", "苏南地区");
+        REGION_MAP.put("无锡市", "苏南地区");
+        REGION_MAP.put("常州市", "苏南地区");
+
+        REGION_MAP.put("海陵区", "下辖区");
+        REGION_MAP.put("高港区", "下辖区");
+        REGION_MAP.put("姜堰区", "下辖区");
+
+        REGION_MAP.put("兴化市", "县级市");
+        REGION_MAP.put("靖江市", "县级市");
+        REGION_MAP.put("泰兴市", "县级市");
+
+        // 镇
+        REGION_MAP.put("戴窑镇", "镇");
+        REGION_MAP.put("合陈镇", "镇");
+        REGION_MAP.put("永丰镇", "镇");
+        REGION_MAP.put("新垛镇", "镇");
+        REGION_MAP.put("安丰镇", "镇");
+        REGION_MAP.put("海南镇", "镇");
+        REGION_MAP.put("钓鱼镇", "镇");
+        REGION_MAP.put("大邹镇", "镇");
+        REGION_MAP.put("沙沟镇", "镇");
+        REGION_MAP.put("中堡镇", "镇");
+        REGION_MAP.put("李中镇", "镇");
+        REGION_MAP.put("西郊镇", "镇");
+        REGION_MAP.put("临城镇", "镇");
+        REGION_MAP.put("垛田镇", "镇");
+        REGION_MAP.put("竹泓镇", "镇");
+        REGION_MAP.put("沈伦镇", "镇");
+        REGION_MAP.put("大垛镇", "镇");
+        REGION_MAP.put("荻垛镇", "镇");
+        REGION_MAP.put("陶庄镇", "镇");
+        REGION_MAP.put("昌荣镇", "镇");
+        REGION_MAP.put("茅山镇", "镇");
+        REGION_MAP.put("周庄镇", "镇");
+        REGION_MAP.put("陈堡镇", "镇");
+        REGION_MAP.put("戴南镇", "镇");
+        REGION_MAP.put("张郭镇", "镇");
+        REGION_MAP.put("昭阳镇", "镇");
+        REGION_MAP.put("大营镇", "镇");
+        REGION_MAP.put("下圩镇", "镇");
+        REGION_MAP.put("城东镇", "镇");
+
+// 乡
+        REGION_MAP.put("老圩乡", "乡");
+        REGION_MAP.put("周奋乡", "乡");
+        REGION_MAP.put("缸顾乡", "乡");
+        REGION_MAP.put("西鲍乡", "乡");
+        REGION_MAP.put("林湖乡", "乡");
     } //一个大辞典
 
     @Autowired
@@ -118,8 +181,10 @@ public class TheilServiceImpl implements TheilService {
         Integer year = 2016;//后面可以根据year的值进行修改
 
         List<Map<String, Integer>> stunum = null;
-        if (Objects.equals(location, "jiangsu")) {
+        if (Objects.equals(location, "jiangsu"))
+        {
             stunum = theilMapper.getStudentDataJiangSu(year);
+            System.out.println(2);
         }
         else if(location.equals("taizhou"))
         {
@@ -177,18 +242,15 @@ public class TheilServiceImpl implements TheilService {
             area += (educost / alleducost) * Math.log((educost / regionEduCost) / pstudentnum);
             //System.out.println(area);
         }
-
         //计算各地区的泰尔指数，区域间泰尔指数
         for (String regiont : regionEduCostMap.keySet()) {
             Double regionEduCost = regionEduCostMap.get(regiont); //获取对应地区的总教育经费
             Integer regionStudentNum = regionStudentMap.get(regiont);//获取对应地区的总人数
-
             Double pstudentnumt = (double) regionStudentNum / alledunum;
             //计算各地区的泰尔指数，然后相加
             region += (regionEduCost / alleducost) * Math.log((regionEduCost / alleducost) / pstudentnumt);
             //System.out.println(region);
         }
-
         //Map<Double,Double> difregion= new HashMap<>();//得到一个list,里面放的是每一个地区的总经费和人口数
         //Map<Double,Double> again
         TheilResult result = new TheilResult();
@@ -196,9 +258,6 @@ public class TheilServiceImpl implements TheilService {
         result.setTheil(theil);
         result.setArea(area);
         result.setRegion(region);
-        //result.put("theil",theil);
-        //result.put("area", area);
-        //result.put("region", region);
         return result;
     }
 }

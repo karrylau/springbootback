@@ -87,7 +87,8 @@ public class MaterialResourceServicelmpl implements MaterialResourceService{
     }
 
     @Override
-    public numdong getSchoolData() {
+    public numdong getSchoolData()
+    {
         List<Map<String, Object>> rawData = materialResourceMapper.getSchoolNumData();
         List<Integer> highdata = new ArrayList<>();
         List<Integer> middleData = new ArrayList<>();
@@ -97,7 +98,6 @@ public class MaterialResourceServicelmpl implements MaterialResourceService{
             middleData.add((Integer) data.get("middle"));
             highdata.add((Integer) data.get("serior"));
         }
-
         numdong result = new numdong();
         // 假设你有方法来将 List<Double> 设置为 primary 属性，或者你可以改造 fixeddong 类来接受 List<Double>
         result.setPrimary(primaryData); // 假设 setPrimary 接受 List<Double>，这需要你在 fixeddong 类中进行相应的修改
