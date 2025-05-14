@@ -9,6 +9,7 @@ import com.karry.springbootmybatis.service.HumanRService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -88,11 +89,11 @@ public class HumanRServiceImpl implements HumanRService {
             List<Map<String, Object>> rawData3= humanRMapper.getCulCost(year);//用于获取文化经费
             List<Map<String, Object>> areadata= humanRMapper.getArea(year);//用于获取面积
             List<Map<String, Object>> rawData4= humanRMapper.getfixedassets(year);
-            System.out.println(rawData);
-            System.out.println(rawData2);
-            System.out.println(rawData3);
-            System.out.println(areadata);
-            System.out.println(rawData4);
+//            System.out.println(rawData);
+//            System.out.println(rawData2);
+//            System.out.println(rawData3);
+//            System.out.println(areadata);
+//            System.out.println(rawData4);
             double totalEduCost = 0;
             double gdp = 0;
             double totalCulCost = 0;
@@ -133,7 +134,11 @@ public class HumanRServiceImpl implements HumanRService {
 
             result.setArea(area);
 
-            result.setFixedAssets(fixedassets);
+            DecimalFormat df = new DecimalFormat("#.00");
+            String formattedValue = df.format(fixedassets); // 例如 "325467552.08"
+            double roundedValue = Double.parseDouble(formattedValue);
+            result.setFixedAssets(roundedValue);
+            //result.setFixedAssets(fixedassets);
 //            System.out.println("totalEduCost: " + result.getFixedAssets());
             return result;
         } catch (Exception e) {
@@ -145,11 +150,11 @@ public class HumanRServiceImpl implements HumanRService {
 
 
     @Override
-    public numdong getSnum() {//将有数据的呈现在主页面上
+    public numdong getSnum(String province,Integer year) {//将有数据的呈现在主页面上
         try {
-            List<Map<String, Object>> rawData = humanRMapper.getPrimarySchoolSnum();
-            List<Map<String, Object>> rawData2= humanRMapper.getMiddleSchoolSnum();
-            List<Map<String, Object>> rawData3= humanRMapper.getHighSchoolSnum();
+            List<Map<String, Object>> rawData = humanRMapper.getPrimarySchoolSnum(province);
+            List<Map<String, Object>> rawData2= humanRMapper.getMiddleSchoolSnum(province);
+            List<Map<String, Object>> rawData3= humanRMapper.getHighSchoolSnum(province);
             List<Integer> highdata = new ArrayList<>();
             List<Integer> middleData = new ArrayList<>();
             List<Integer> primaryData = new ArrayList<>();
@@ -177,11 +182,11 @@ public class HumanRServiceImpl implements HumanRService {
 
 
     @Override
-    public numdong getTnum() {//将有数据的呈现在主页面上
+    public numdong getTnum(String province,Integer year) {//将有数据的呈现在主页面上
         try {
-            List<Map<String, Object>> rawData = humanRMapper.getPrimarySchoolTnum();
-            List<Map<String, Object>> rawData2= humanRMapper.getMiddleSchoolTnum();
-            List<Map<String, Object>> rawData3= humanRMapper.getHighSchoolTnum();
+            List<Map<String, Object>> rawData = humanRMapper.getPrimarySchoolTnum(province);
+            List<Map<String, Object>> rawData2= humanRMapper.getMiddleSchoolTnum(province);
+            List<Map<String, Object>> rawData3= humanRMapper.getHighSchoolTnum(province);
             List<Integer> highdata = new ArrayList<>();
             List<Integer> middleData = new ArrayList<>();
             List<Integer> primaryData = new ArrayList<>();

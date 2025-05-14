@@ -1,5 +1,6 @@
 package com.karry.springbootmybatis.controller;
 
+import com.karry.springbootmybatis.pojo.Forecast;
 import com.karry.springbootmybatis.pojo.homenum;
 import com.karry.springbootmybatis.pojo.humanRes;
 import com.karry.springbootmybatis.pojo.numdong;
@@ -23,7 +24,7 @@ public class HumanRController {
 
     @GetMapping("/home")    //地图两边的五个数字
     public homenum gethomenum(@RequestParam("year") Integer year) {
-        System.out.println(year);
+        //System.out.println(year);
         return humanRService.getHomenum(year);
     }
 
@@ -38,12 +39,16 @@ public class HumanRController {
     }
 
     @GetMapping("/snumdata")  //学生人数图表连接
-    public numdong getsnum(){
-        return humanRService.getSnum();
+    public numdong getsnum(Forecast data){
+        String province = data.getLocation();
+        Integer year = data.getTargetYear();
+        return humanRService.getSnum(province,year);
     }
 
     @GetMapping("/teacherdata")  //教师人数图表连接
-    public numdong gettnum(){
-        return humanRService.getTnum();
+    public numdong gettnum(Forecast data){
+        String province = data.getLocation();
+        Integer year = data.getTargetYear();
+        return humanRService.getTnum(province,year);
     }
 }
