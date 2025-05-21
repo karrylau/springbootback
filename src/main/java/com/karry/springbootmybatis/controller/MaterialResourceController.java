@@ -1,5 +1,6 @@
 package com.karry.springbootmybatis.controller;
 
+import com.karry.springbootmybatis.pojo.Forecast;
 import com.karry.springbootmybatis.pojo.MaterialResource;
 import com.karry.springbootmybatis.pojo.numdong;
 import com.karry.springbootmybatis.service.impl.MaterialResourceServicelmpl;
@@ -28,11 +29,15 @@ public class MaterialResourceController {
         return materialResourceService.getStructuredMaterialResources();
     }
     @GetMapping("/fixeddata")  //固有资产图表连接
-    public fixeddong getFixedData() {
-        return materialResourceService.getFixedData();
+    public fixeddong getFixedData(Forecast data) {
+        String province = data.getLocation();
+        Integer year = data.getTargetYear();
+        return materialResourceService.getFixedData(province,year);
     }
     @GetMapping("/schooldata")  //学校数图表连接
-    public numdong getSchoolData(){
-        return materialResourceService.getSchoolData();
+    public numdong getSchoolData(Forecast data){
+        String province = data.getLocation();
+        Integer year = data.getTargetYear();
+        return materialResourceService.getSchoolData(province,year);
     }
 }

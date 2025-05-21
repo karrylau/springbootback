@@ -58,10 +58,10 @@ public class MaterialResourceServicelmpl implements MaterialResourceService{
         return structuredData;
     }
     @Override
-    public fixeddong getFixedData() {
-        List<Map<String, Object>> rawData = materialResourceMapper.getPrimarySchoolData();
-        List<Map<String, Object>> rawData2 = materialResourceMapper.getMiddleSchoolData();
-        List<Map<String, Object>> rawData3 = materialResourceMapper.getHighSchoolData();
+    public fixeddong getFixedData(String province,Integer year) {
+        List<Map<String, Object>> rawData = materialResourceMapper.getPrimarySchoolData(province);
+        List<Map<String, Object>> rawData2 = materialResourceMapper.getMiddleSchoolData(province);
+        List<Map<String, Object>> rawData3 = materialResourceMapper.getHighSchoolData(province);
         List<Double> highdata = new ArrayList<>();
         List<Double> middleData = new ArrayList<>();
         List<Double> primaryData = new ArrayList<>();
@@ -87,16 +87,17 @@ public class MaterialResourceServicelmpl implements MaterialResourceService{
     }
 
     @Override
-    public numdong getSchoolData()
+    public numdong getSchoolData(String province,Integer year)
     {
-        List<Map<String, Object>> rawData = materialResourceMapper.getSchoolNumData();
+        List<Map<String, Object>> rawData = materialResourceMapper.getSchoolNumData(province); //加入一个province
         List<Integer> highdata = new ArrayList<>();
         List<Integer> middleData = new ArrayList<>();
         List<Integer> primaryData = new ArrayList<>();
-        for (Map<String, Object> data : rawData) {
+        for (Map<String, Object> data : rawData)
+        {
             primaryData.add((Integer) data.get("primary"));
             middleData.add((Integer) data.get("middle"));
-            highdata.add((Integer) data.get("serior"));
+            highdata.add((Integer) data.get("senior"));//serior不会拼，难绷，获取senior数据
         }
         numdong result = new numdong();
         // 假设你有方法来将 List<Double> 设置为 primary 属性，或者你可以改造 fixeddong 类来接受 List<Double>

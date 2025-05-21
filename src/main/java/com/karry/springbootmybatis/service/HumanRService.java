@@ -9,6 +9,6 @@ public interface HumanRService {
     humanRes getAll();
     humanRes getFilteredData(Integer year, String stage, String location);
     homenum getHomenum(Integer year);
-    numdong getSnum();
-    numdong getTnum();
+    numdong getSnum(String province,Integer year);
+    numdong getTnum(String province,Integer year);
 }

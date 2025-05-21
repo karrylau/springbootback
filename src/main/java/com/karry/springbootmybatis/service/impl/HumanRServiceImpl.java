@@ -150,11 +150,11 @@ public class HumanRServiceImpl implements HumanRService {
 
 
     @Override
-    public numdong getSnum() {//将有数据的呈现在主页面上
+    public numdong getSnum(String province,Integer year) {//将有数据的呈现在主页面上
         try {
-            List<Map<String, Object>> rawData = humanRMapper.getPrimarySchoolSnum();
-            List<Map<String, Object>> rawData2= humanRMapper.getMiddleSchoolSnum();
-            List<Map<String, Object>> rawData3= humanRMapper.getHighSchoolSnum();
+            List<Map<String, Object>> rawData = humanRMapper.getPrimarySchoolSnum(province);  //获取一个province数据传输给mapper
+            List<Map<String, Object>> rawData2= humanRMapper.getMiddleSchoolSnum(province);
+            List<Map<String, Object>> rawData3= humanRMapper.getHighSchoolSnum(province);
             List<Integer> highdata = new ArrayList<>();
             List<Integer> middleData = new ArrayList<>();
             List<Integer> primaryData = new ArrayList<>();
@@ -182,11 +182,11 @@ public class HumanRServiceImpl implements HumanRService {
 
 
     @Override
-    public numdong getTnum() {//将有数据的呈现在主页面上
+    public numdong getTnum(String province,Integer year) {//将有数据的呈现在主页面上
         try {
-            List<Map<String, Object>> rawData = humanRMapper.getPrimarySchoolTnum();
-            List<Map<String, Object>> rawData2= humanRMapper.getMiddleSchoolTnum();
-            List<Map<String, Object>> rawData3= humanRMapper.getHighSchoolTnum();
+            List<Map<String, Object>> rawData = humanRMapper.getPrimarySchoolTnum(province);
+            List<Map<String, Object>> rawData2= humanRMapper.getMiddleSchoolTnum(province);
+            List<Map<String, Object>> rawData3= humanRMapper.getHighSchoolTnum(province);
             List<Integer> highdata = new ArrayList<>();
             List<Integer> middleData = new ArrayList<>();
             List<Integer> primaryData = new ArrayList<>();

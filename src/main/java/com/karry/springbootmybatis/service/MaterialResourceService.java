@@ -9,6 +9,6 @@ public interface MaterialResourceService
     List<MaterialResource> getAllMaterialResources();
     Map<String, List<Object>> getStructuredMaterialResources(); // 新方法
 
-    fixeddong getFixedData();
-    numdong getSchoolData();
+    fixeddong getFixedData(String province,Integer year);
+    numdong getSchoolData(String province,Integer year);
 }
