@@ -18,7 +18,7 @@ public class GCcontroller {
 @Autowired
     private GCService GCService;
 @GetMapping
-    public result listfcec(){
+    public result listfcec() {
         log.info("查询全部部门数据");
         //调用service查询部门数据
         List<GiniCoefficient> deptList =  GCService.listfcec();

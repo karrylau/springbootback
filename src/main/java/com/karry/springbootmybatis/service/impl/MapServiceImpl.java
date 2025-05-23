@@ -137,8 +137,6 @@ public class MapServiceImpl implements MapService {
         }
     }
 
-
-
         for(Map<String,Object> dataH : getH){
             String locationH = (String)dataH.get("location");
 

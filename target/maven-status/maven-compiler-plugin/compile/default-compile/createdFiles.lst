@@ -27,6 +27,7 @@ com\karry\springbootmybatis\controller\LeslieController.class
 com\karry\springbootmybatis\service\impl\GCServiceImpl.class
 com\karry\springbootmybatis\service\HumanRService.class
 com\karry\springbootmybatis\controller\FinancialRController.class
+com\karry\springbootmybatis\pojo\TheilRequest.class
 com\karry\springbootmybatis\mapper\GCMapper.class
 com\karry\springbootmybatis\service\GeniService.class
 com\karry\springbootmybatis\service\impl\ReportService.class
